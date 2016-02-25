@@ -14,7 +14,8 @@ public class SpecialPowerEditor : Editor {
         extraSpeed_Prop,
         maxDamage_Prop, 
         radius_Prop,
-        delay_Prop;
+        delay_Prop,
+        flash_Prop;
             
 
     void OnEnable()
@@ -29,6 +30,7 @@ public class SpecialPowerEditor : Editor {
         maxDamage_Prop = serializedObject.FindProperty("maxDamage");
         radius_Prop = serializedObject.FindProperty("radius");
         delay_Prop = serializedObject.FindProperty("delay");
+        flash_Prop = serializedObject.FindProperty("flash");
     }
 
     public override void OnInspectorGUI()
@@ -51,6 +53,7 @@ public class SpecialPowerEditor : Editor {
                 EditorGUILayout.PropertyField(maxDamage_Prop);
                 EditorGUILayout.PropertyField(radius_Prop);
                 EditorGUILayout.PropertyField(delay_Prop);
+                EditorGUILayout.PropertyField(flash_Prop);
                 break;
         }
 

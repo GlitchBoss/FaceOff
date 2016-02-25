@@ -12,6 +12,7 @@ public class SpecialPower : MonoBehaviour {
     public int maxDamage;
     public float radius;
     public float delay;
+    public GameObject flash;
 
     public Type type;
 
@@ -62,6 +63,7 @@ public class SpecialPower : MonoBehaviour {
 
     void EngageBomb()
     {
+        StartCoroutine(Timer());
         Player otherPlayer;
         if(GameManager.instance.players.IndexOf(player) == 0)
         {
@@ -77,7 +79,7 @@ public class SpecialPower : MonoBehaviour {
         float damage = relativeDistance * maxDamage;
         damage = Mathf.Max(0f, damage);
         otherPlayer.TakeDamage(damage);
-        Disengage();
+        flash.SetActive(true);
     }
 
     void OnDrawGizmos()
@@ -121,5 +123,6 @@ public class SpecialPower : MonoBehaviour {
     void DisengageBomb()
     {
         player.power.num = 0;
+        flash.SetActive(false);
     }
 }
