@@ -13,6 +13,7 @@ GameObject:
   - 95: {fileID: 9506644}
   - 114: {fileID: 11448844}
   - 114: {fileID: 11426022}
+  - 114: {fileID: 11458146}
   m_Layer: 9
   m_Name: NormalFace
   m_TagString: Player
@@ -179,7 +180,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 106070}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.75, y: 1.7, z: 0}
+  m_LocalPosition: {x: -8.54, y: 5.66, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 413058}
@@ -402,13 +403,25 @@ MonoBehaviour:
   facingRight: 0
   lost: 0
   engaged: 0
-  keys: 0000000000000000000000000000000000000000
+  keys: 7700000020000000640000006100000030010000
   ground:
     serializedVersion: 2
     m_Bits: 256
   winGO: {fileID: 169958}
   anim: {fileID: 0}
   weapon: {fileID: 0}
+  level: {fileID: 0}
+--- !u!114 &11458146
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 106070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4841e2ee6f8028488a3864069f7cc86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   level: 0
 --- !u!114 &11490406
 MonoBehaviour:

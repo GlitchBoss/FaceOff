@@ -7,11 +7,14 @@ public class PathFinding : MonoBehaviour {
 
     public List<Node> nodes;
     public List<Node> path;
-    public int maxPathLength = 13;
+    public int maxPathLength
+    {
+        get { return nodes.Count; }
+    }
 
     List<float> distToPlayer;
-    float minDist;
-    int minDistIndex;
+    float playerNode;
+    int playerNodeIndex;
     int lastMinDistIndex = -1;
 
     int currentNodeIndex;
@@ -35,17 +38,17 @@ public class PathFinding : MonoBehaviour {
 
     void FindQuickestRoute()
     {
-        minDistIndex = ClosestNode(player.position);
-        if (minDistIndex == lastMinDistIndex)
+        playerNodeIndex = ClosestNode(player);
+        if (playerNodeIndex == lastMinDistIndex)
         {
-            enemy.SetPath(path);
+            //enemy.SetPath(path);
             return;
         }
-        lastMinDistIndex = minDistIndex;
-        currentNodeIndex = ClosestNode(enemy.transform.position);
+        lastMinDistIndex = playerNodeIndex;
+        currentNodeIndex = ClosestNode(enemy.transform);
         path.Clear();
 
-        if(currentNodeIndex == minDistIndex)
+        if (currentNodeIndex == playerNodeIndex)
         {
             path.Add(nodes[currentNodeIndex]);
             enemy.SetPath(path);
@@ -57,12 +60,13 @@ public class PathFinding : MonoBehaviour {
         for(int i = 0; i < maxPathLength; i++)
         {
             path.Add(NextClosestNode(nodes.IndexOf(path.Last())));
-            if(path.Last() == nodes[minDistIndex])
+            if(path.Last() == nodes[playerNodeIndex])
             {
                 enemy.SetPath(path);
                 return;
             }
         }
+        enemy.SetPath(path);
     }
 
     Node NextClosestNode(int index)
@@ -75,17 +79,19 @@ public class PathFinding : MonoBehaviour {
                 return nodes[index].connections[a];
             }
         }
-        return nodes.Last();
+        return path.Last();
     }
 
-    int ClosestNode(Vector2 target)
+    int ClosestNode(Transform target)
     {
         distToPlayer.Clear();
         for(int i = 0; i < nodes.Count; i++)
         {
-            distToPlayer.Add(Vector2.Distance(nodes[i].transform.position, target));
+            if(nodes[i].level == target.GetComponent<PlatformLevel>().level)
+                distToPlayer.Add(Vector2.Distance(nodes[i].transform.position, target.position));
         }
-        minDist = distToPlayer.Min();
-        return distToPlayer.IndexOf(minDist);
+        playerNode = distToPlayer.Min();
+        
+        return distToPlayer.IndexOf(playerNode);
     }
 }

@@ -14,7 +14,7 @@ public class Player : MonoBehaviour {
     public GameObject winGO;
     public Animator anim;
     public Weapon weapon;
-    public PlatformLevel.Level level;
+    public PlatformLevel level;
 
     Rigidbody2D _rigidbody;
     float distToGround;
@@ -28,6 +28,7 @@ public class Player : MonoBehaviour {
         weapon = GetComponentInChildren<Weapon>();
         anim = GetComponent<Animator>();
         SP = GetComponent<SpecialPower>();
+        level = GetComponent<PlatformLevel>();
         distToGround = _collider.bounds.extents.y;
         UpdateHealthSlider();
     }
@@ -169,7 +170,7 @@ public class Player : MonoBehaviour {
     {
         if(col.tag == "PlatformLevel")
         {
-            level = col.GetComponent<PlatformLevel>().level;
+            level.level = col.GetComponent<PlatformLevel>().level;
         }
     }
 }
