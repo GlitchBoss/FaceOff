@@ -4,6 +4,7 @@ using System.Collections;
 public class Node : MonoBehaviour {
 
     public Node[] connections;
+    public PlatformLevel.Level level;
     public bool showConnections;
 
     void OnDrawGizmos()

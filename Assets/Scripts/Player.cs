@@ -14,6 +14,7 @@ public class Player : MonoBehaviour {
     public GameObject winGO;
     public Animator anim;
     public Weapon weapon;
+    public PlatformLevel.Level level;
 
     Rigidbody2D _rigidbody;
     float distToGround;
@@ -112,33 +113,33 @@ public class Player : MonoBehaviour {
 
     public void UpdateHealthSlider()
     {
-        healthSlider.maxValue = health.max;
-        healthSlider.minValue = health.min;
-        healthSlider.value = health.num;
+        //healthSlider.maxValue = health.max;
+        //healthSlider.minValue = health.min;
+        //healthSlider.value = health.num;
     }
 
     public void UpdatePowerSlider(bool inUse)
     {
-        if (power.num > power.max)
-        {
-            power.num = power.max;
-            return;
-        }
-        else if(power.num < power.min)
-        {
-            power.num = power.min;
-            return;
-        }
+        //if (power.num > power.max)
+        //{
+        //    power.num = power.max;
+        //    return;
+        //}
+        //else if(power.num < power.min)
+        //{
+        //    power.num = power.min;
+        //    return;
+        //}
 
-        if (inUse)
-        {
-            power.num -= powerDecrease * Time.deltaTime;
-        }
-        else
-        {
-            power.num += powerIncrease * Time.deltaTime;
-        }
-        powerSlider.value = power.num;
+        //if (inUse)
+        //{
+        //    power.num -= powerDecrease * Time.deltaTime;
+        //}
+        //else
+        //{
+        //    power.num += powerIncrease * Time.deltaTime;
+        //}
+        //powerSlider.value = power.num;
     }
 
     public void Win()
@@ -162,5 +163,13 @@ public class Player : MonoBehaviour {
             Lose();
         }
         UpdateHealthSlider();
+    }
+
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        if(col.tag == "PlatformLevel")
+        {
+            level = col.GetComponent<PlatformLevel>().level;
+        }
     }
 }

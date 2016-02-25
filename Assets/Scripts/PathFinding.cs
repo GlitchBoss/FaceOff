@@ -38,7 +38,7 @@ public class PathFinding : MonoBehaviour {
         minDistIndex = ClosestNode(player.position);
         if (minDistIndex == lastMinDistIndex)
         {
-            enemy.FollowPath(path);
+            enemy.SetPath(path);
             return;
         }
         lastMinDistIndex = minDistIndex;
@@ -48,7 +48,7 @@ public class PathFinding : MonoBehaviour {
         if(currentNodeIndex == minDistIndex)
         {
             path.Add(nodes[currentNodeIndex]);
-            enemy.FollowPath(path);
+            enemy.SetPath(path);
             return;
         }
 
@@ -59,7 +59,7 @@ public class PathFinding : MonoBehaviour {
             path.Add(NextClosestNode(nodes.IndexOf(path.Last())));
             if(path.Last() == nodes[minDistIndex])
             {
-                enemy.FollowPath(path);
+                enemy.SetPath(path);
                 return;
             }
         }

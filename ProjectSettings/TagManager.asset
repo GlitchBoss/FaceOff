@@ -7,6 +7,7 @@ TagManager:
   - SpawnPoint1
   - SpawnPoint2
   - Enemy
+  - PlatformLevel
   layers:
   - Default
   - TransparentFX

@@ -345,10 +345,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   duration: 3
+  animBool: SpecialPowerActive
   extraHealth: 20
   extraDamage: 3
   extraSpeed: 0
-  animBool: SpecialPowerActive
+  maxDamage: 0
+  radius: 0
+  delay: 0
+  flash: {fileID: 0}
+  type: 0
 --- !u!114 &11435008
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -404,6 +409,7 @@ MonoBehaviour:
   winGO: {fileID: 169958}
   anim: {fileID: 0}
   weapon: {fileID: 0}
+  level: 0
 --- !u!114 &11490406
 MonoBehaviour:
   m_ObjectHideFlags: 1
