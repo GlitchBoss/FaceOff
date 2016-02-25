@@ -5,7 +5,7 @@ using System.Collections;
 public class Player : MonoBehaviour {
 
     public float speed, jumpForce;
-    public RangeInt health, power;
+    public RangeFloat health, power;
     public Slider healthSlider, powerSlider;
     public int powerDecrease, powerIncrease;
     public bool useSecondaryControls, facingRight, lost, engaged;
@@ -152,7 +152,7 @@ public class Player : MonoBehaviour {
         lost = true;
     }
 
-    public void TakeDamage(int amount)
+    public void TakeDamage(float amount)
     {
         if (lost)
             return;

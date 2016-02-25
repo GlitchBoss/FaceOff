@@ -2,6 +2,7 @@
 using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Analytics;
 
 public class GameManager : MonoBehaviour {
 
@@ -9,8 +10,8 @@ public class GameManager : MonoBehaviour {
 
     [HideInInspector]
     public int player1Face, player2Face;
+    public List<Player> players;
 
-    List<Player> players;
     GameObject[] spawnPoints1, spawnPoints2;
     UIManager UIM;
 
@@ -63,6 +64,8 @@ public class GameManager : MonoBehaviour {
         p2.SetControls();
         players.Add(p1);
         players.Add(p2);
+
+        
     }
 
     public void GameOver(Player loser)

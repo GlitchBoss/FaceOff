@@ -463,6 +463,6 @@ PlayerSettings:
   WebGL::template: APPLICATION:Default
   additionalIl2CppArgs::additionalIl2CppArgs: 
   cloudProjectId: 759fe27e-2251-45f9-8d99-faf62aa44cb0
-  projectName: Text Wars
+  projectName: Face Off
   organizationId: glitch-from-unityads-34352
   cloudEnabled: 0

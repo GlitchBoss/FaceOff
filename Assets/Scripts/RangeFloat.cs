@@ -3,9 +3,9 @@ using System.Collections;
 using System;
 
 [Serializable]
-public class RangeInt {
+public class RangeFloat {
 
-    public int max;
-    public int min = 0;
+    public float max;
+    public float min = 0;
     public float num;
 }
