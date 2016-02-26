@@ -8,13 +8,6 @@ public class Player : Character {
 
     protected override void StartUp()
     {
-        _collider = GetComponent<Collider2D>();
-        _rigidbody = GetComponent<Rigidbody2D>();
-        weapon = GetComponentInChildren<Weapon>();
-        anim = GetComponent<Animator>();
-        SP = GetComponent<SpecialPower>();
-        level = GetComponent<PlatformLevel>();
-        distToGround = _collider.bounds.extents.y;
         UpdateHealthSlider();
     }
 
@@ -43,7 +36,11 @@ public class Player : Character {
 
 	protected override void OnUpdate()
     {
-        if (lost)
+		if (GameManager.instance.singlePlayer && weapon.col && weapon.col.enemyTag != "Enemy")
+		{
+			weapon.col.enemyTag = "Enemy";
+		}
+		if (lost)
         {
             weapon.isAttacking = false;
             weapon.col.hasAttacked = true;
@@ -89,13 +86,5 @@ public class Player : Character {
 
         _rigidbody.velocity = new Vector2(horizontal * speed, _rigidbody.velocity.y);
         UpdatePowerSlider(engaged);
-    }
-
-	protected override void OnOnTriggerStay2D(Collider2D col)
-    {
-        if (col.tag == "PlatformLevel" && level.level != col.GetComponent<PlatformLevel>().level)
-        {
-            level.level = col.GetComponent<PlatformLevel>().level;
-        }
     }
 }

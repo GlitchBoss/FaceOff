@@ -334,6 +334,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hasAttacked: 0
+  enemyTag: Player
 --- !u!114 &11426022
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -370,7 +371,7 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 512
-  player: {fileID: 0}
+  character: {fileID: 0}
   anim: {fileID: 0}
   isAttacking: 0
   col: {fileID: 0}
@@ -403,7 +404,6 @@ MonoBehaviour:
   facingRight: 0
   lost: 0
   engaged: 0
-  keys: 7700000020000000640000006100000030010000
   ground:
     serializedVersion: 2
     m_Bits: 256
@@ -411,6 +411,12 @@ MonoBehaviour:
   anim: {fileID: 0}
   weapon: {fileID: 0}
   level: {fileID: 0}
+  image: {fileID: 0}
+  _rigidbody: {fileID: 0}
+  distToGround: 0
+  _collider: {fileID: 0}
+  SP: {fileID: 0}
+  keys: 7700000020000000640000006100000030010000
 --- !u!114 &11458146
 MonoBehaviour:
   m_ObjectHideFlags: 1

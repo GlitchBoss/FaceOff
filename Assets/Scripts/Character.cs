@@ -14,6 +14,7 @@ public class Character : MonoBehaviour {
 	public Animator anim;
 	public Weapon weapon;
 	public PlatformLevel level;
+	public Transform image;
 
 	[HideInInspector]
 	public Rigidbody2D _rigidbody;
@@ -24,25 +25,32 @@ public class Character : MonoBehaviour {
 	[HideInInspector]
 	public SpecialPower SP;
 
-	void Start() { StartUp(); }
-
-	public void SetControls() { OnSetControls(); }
-
-	void Update() { OnUpdate();	}
-
-	void OnTriggerStay2D(Collider2D col) { OnOnTriggerStay2D(col);	}
-
-	protected virtual void StartUp()
+	void Start()
 	{
-		_collider = GetComponent<Collider2D>();
+		image = transform.FindChild("Image").transform;
+		level = GetComponent<PlatformLevel>();
 		_rigidbody = GetComponent<Rigidbody2D>();
+		_collider = GetComponent<CircleCollider2D>();
 		weapon = GetComponentInChildren<Weapon>();
 		anim = GetComponent<Animator>();
 		SP = GetComponent<SpecialPower>();
-		level = GetComponent<PlatformLevel>();
 		distToGround = _collider.bounds.extents.y;
-		UpdateHealthSlider();
+		StartUp();
 	}
+
+	public void SetControls() { OnSetControls(); }
+
+	void Update()
+	{
+		if (lost)
+			return;
+		OnUpdate();
+		UpdatePowerSlider(engaged);
+	}
+
+	void OnTriggerStay2D(Collider2D col) { OnOnTriggerStay2D(col);	}
+
+	protected virtual void StartUp() { }
 
 	protected virtual void OnSetControls() { }
 
@@ -58,33 +66,33 @@ public class Character : MonoBehaviour {
 
 	public void UpdateHealthSlider()
 	{
-		//healthSlider.maxValue = health.max;
-		//healthSlider.minValue = health.min;
-		//healthSlider.value = health.num;
+		healthSlider.maxValue = health.max;
+		healthSlider.minValue = health.min;
+		healthSlider.value = health.num;
 	}
 
 	public void UpdatePowerSlider(bool inUse)
 	{
-		//if (power.num > power.max)
-		//{
-		//    power.num = power.max;
-		//    return;
-		//}
-		//else if(power.num < power.min)
-		//{
-		//    power.num = power.min;
-		//    return;
-		//}
+		if (power.num > power.max)
+		{
+			power.num = power.max;
+			return;
+		}
+		else if (power.num < power.min)
+		{
+			power.num = power.min;
+			return;
+		}
 
-		//if (inUse)
-		//{
-		//    power.num -= powerDecrease * Time.deltaTime;
-		//}
-		//else
-		//{
-		//    power.num += powerIncrease * Time.deltaTime;
-		//}
-		//powerSlider.value = power.num;
+		if (inUse)
+		{
+			power.num -= powerDecrease * Time.deltaTime;
+		}
+		else
+		{
+			power.num += powerIncrease * Time.deltaTime;
+		}
+		powerSlider.value = power.num;
 	}
 
 	public void Win()
@@ -108,13 +116,5 @@ public class Character : MonoBehaviour {
 			Lose();
 		}
 		UpdateHealthSlider();
-	}
-
-	void OnTriggerEnter2D(Collider2D col)
-	{
-		if (col.tag == "PlatformLevel")
-		{
-			level.level = col.GetComponent<PlatformLevel>().level;
-		}
 	}
 }

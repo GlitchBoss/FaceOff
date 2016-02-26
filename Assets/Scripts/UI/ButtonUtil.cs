@@ -37,4 +37,9 @@ public class ButtonUtil : MonoBehaviour {
     {
         UIM.LoadArena();
     }
+
+	public void LoadSinglePlayer()
+	{
+		UIM.LoadSinglePlayer();
+	}
 }

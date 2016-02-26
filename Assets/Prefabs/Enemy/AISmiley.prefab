@@ -10,7 +10,6 @@ GameObject:
   - 4: {fileID: 473370}
   - 50: {fileID: 5017764}
   - 58: {fileID: 5849092}
-  - 58: {fileID: 5870280}
   - 95: {fileID: 9506644}
   - 114: {fileID: 11485822}
   - 114: {fileID: 11426022}
@@ -80,6 +79,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 413058}
   - 212: {fileID: 21225466}
+  - 58: {fileID: 5833304}
+  - 114: {fileID: 11489226}
   m_Layer: 10
   m_Name: Image
   m_TagString: Untagged
@@ -96,7 +97,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 475168}
   - 212: {fileID: 21289884}
-  - 114: {fileID: 11409158}
+  - 114: {fileID: 11413106}
   m_Layer: 10
   m_Name: Weapon
   m_TagString: Untagged
@@ -245,6 +246,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!58 &5833304
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 154808}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 2
 --- !u!58 &5849092
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -259,20 +274,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.55
---- !u!58 &5870280
-CircleCollider2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 106070}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 2
 --- !u!61 &6117230
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -337,7 +338,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &11409158
+--- !u!114 &11413106
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -345,18 +346,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 169060}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0064556aa8c7e74682915e3f4d32335, type: 3}
+  m_Script: {fileID: 11500000, guid: e98ee3bdb7906a840aace61d5563abaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
+  damage: 5
   playerLayer:
     serializedVersion: 2
     m_Bits: 0
-  enemy: {fileID: 0}
+  character: {fileID: 0}
   anim: {fileID: 0}
   isAttacking: 0
   col: {fileID: 0}
-  singlePlayer: 0
 --- !u!114 &11419096
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -369,8 +369,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hasAttacked: 0
-  enemyTag: 
-  isPlayer: 1
+  enemyTag: Player
 --- !u!114 &11426022
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -415,14 +414,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7e1989a4169d834fb9aa88b07b1f8a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: 10
   speed: 8
-  path: []
-  showPath: 1
+  jumpForce: 10
+  health:
+    max: 30
+    min: 0
+    num: 30
+  power:
+    max: 90
+    min: 0
+    num: 0
+  healthSlider: {fileID: 0}
+  powerSlider: {fileID: 0}
+  powerDecrease: 30
+  powerIncrease: 10
+  useSecondaryControls: 0
+  facingRight: 0
+  lost: 0
+  engaged: 0
   ground:
     serializedVersion: 2
     m_Bits: 256
-  lost: 0
+  winGO: {fileID: 0}
+  anim: {fileID: 0}
+  weapon: {fileID: 0}
+  level: {fileID: 0}
+  image: {fileID: 0}
+  _rigidbody: {fileID: 0}
+  distToGround: 0
+  _collider: {fileID: 0}
+  SP: {fileID: 0}
+  path: []
+  showPath: 1
+  shouldAttack: 0
+--- !u!114 &11489226
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 154808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74efb24aaf306c040b3c781107fd524a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11490406
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -602,6 +637,26 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: health.max
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: health.num
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: power.max
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: powerDecrease
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: powerIncrease
       value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []

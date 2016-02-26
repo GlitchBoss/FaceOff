@@ -5,16 +5,15 @@ public class Weapon : MonoBehaviour {
 
     public int damage;
     public LayerMask playerLayer;
-    public Player player;
+    public Character character;
     public Animator anim;
     public bool isAttacking;
     public WeaponCol col;
-    public bool singlePlayer;
 
     void Start ()
     {
-        player = transform.parent.GetComponentInParent<Player>();
-        anim = player.GetComponent<Animator>();
+        character = transform.parent.GetComponentInParent<Character>();
+        anim = character.GetComponent<Animator>();
         StartUp();
     }
 
@@ -22,7 +21,7 @@ public class Weapon : MonoBehaviour {
 
     void Update()
     {
-        if (player.lost)
+        if (character.lost)
             return;
     }
 

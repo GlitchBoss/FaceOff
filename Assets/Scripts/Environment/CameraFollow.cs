@@ -3,7 +3,7 @@ using System.Collections;
 
 public class CameraFollow : MonoBehaviour {
 
-    public GameObject[] players;
+    public Character[] players;
     public float dist;
     public float minZoom;
     [Range(0, 100)]
@@ -12,7 +12,7 @@ public class CameraFollow : MonoBehaviour {
 
     void Start()
     {
-        players = GameObject.FindGameObjectsWithTag("Player");
+		players = GameObject.FindObjectsOfType<Character>();
     }
 
     void FixedUpdate()

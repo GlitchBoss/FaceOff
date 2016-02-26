@@ -7,9 +7,11 @@ using UnityEngine.Analytics;
 public class GameManager : MonoBehaviour {
 
     public Character[] faces;
+	public Character[] enemies;
+	public bool singlePlayer;
 
     [HideInInspector]
-    public int player1Face, player2Face;
+    public int player1Face, player2Face, enemyFace;
     public List<Character> players;
 
     GameObject[] spawnPoints1, spawnPoints2;
@@ -38,12 +40,16 @@ public class GameManager : MonoBehaviour {
         {
             case "Arena":
                 players = new List<Character>();
-                SpawnPlayers();
+                SpawnPlayers(singlePlayer = false);
                 break;
+			case "SinglePlayer":
+				players = new List<Character>();
+				SpawnPlayers(singlePlayer = true);
+				break;
         }
     }
 
-    void SpawnPlayers()
+    void SpawnPlayers(bool singlePlayer)
     {
         spawnPoints1 = GameObject.FindGameObjectsWithTag("SpawnPoint1");
         spawnPoints2 = GameObject.FindGameObjectsWithTag("SpawnPoint2");
@@ -51,11 +57,14 @@ public class GameManager : MonoBehaviour {
 
 		Character p1 = (Character)Instantiate(faces[player1Face], 
             spawnPoints1[index].transform.position, Quaternion.identity);
-
-		Character p2 = (Character)Instantiate(faces[player2Face], 
-            spawnPoints2[index].transform.position, Quaternion.identity);
-        
-        p1.useSecondaryControls = true;
+		Character p2;
+		if (singlePlayer)
+			p2 = (Character)Instantiate(enemies[enemyFace], 
+				spawnPoints2[index].transform.position, Quaternion.identity);
+		else
+			p2 = (Character)Instantiate(faces[player2Face],
+				spawnPoints2[index].transform.position, Quaternion.identity);
+		p1.useSecondaryControls = true;
         p1.healthSlider = UIM.p1Health;
         p1.powerSlider = UIM.p1Power;
         p2.healthSlider = UIM.p2Health;
@@ -64,8 +73,6 @@ public class GameManager : MonoBehaviour {
         p2.SetControls();
         players.Add(p1);
         players.Add(p2);
-
-        
     }
 
     public void GameOver(Character loser)

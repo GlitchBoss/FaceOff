@@ -8,7 +8,7 @@ public class Gun : Weapon {
     protected override void OnAttack(bool OnGround)
     {
         Vector2 rayDir;
-        if (player.facingRight)
+        if (character.facingRight)
             rayDir = new Vector2(1, 0);
         else
             rayDir = new Vector2(-1, 0);

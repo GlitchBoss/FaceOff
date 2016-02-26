@@ -6,25 +6,37 @@ public class Enemy : Character {
 
     public Transform[] path;
     public bool showPath;
+	public bool shouldAttack;
 
     bool toHigherLevel;
     Player player;
     Vector2 side, velocity;
     PathFinding pathFinding;
+	int horizontal = 1;
 
 	protected override void StartUp()
     {
-        _rigidbody = GetComponent<Rigidbody2D>();
-        _collider = GetComponent<CircleCollider2D>();
-        level = GetComponent<PlatformLevel>();
         pathFinding = GameObject.Find("Path").GetComponent<PathFinding>();
-        distToGround = _collider.bounds.extents.y;
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
     }
 
 	protected override void OnUpdate()
     {
-        if (player.level.level == level.level)
+		if (horizontal > 0)
+			image.localScale = new Vector3(1, 1, 1);
+		else if (horizontal < 0)
+			image.localScale = new Vector3(-1, 1, 1);
+
+		if (shouldAttack)
+		{
+			weapon.Attack(IsGrounded());
+		}
+		if (anim.GetCurrentAnimatorStateInfo(0).IsName("PlayerIdle"))
+			weapon.isAttacking = false;
+		else
+			weapon.isAttacking = true;
+
+		if (player.level.level == level.level)
         {
             MoveToPlayer();
             toHigherLevel = false;
@@ -38,21 +50,31 @@ public class Enemy : Character {
             if(playerSide.x > 0)
             {
                 path = pathFinding.rightPath;
+				horizontal = 1;
             }
             else
             {
                 path = pathFinding.leftPath;
+				horizontal = -1;
             }
             toHigherLevel = true;
             MoveToNode(path[(int)level.level].position);
-        } 
+		}
     }
 
     void MoveToPlayer()
     {
         side = transform.InverseTransformPoint(player.transform.position);
         side.Normalize();
-        velocity = new Vector2(side.x * speed, _rigidbody.velocity.y);
+		if (side.x > 0)
+		{
+			horizontal = 1;
+		}
+		else
+		{
+			horizontal = -1;
+		}
+		velocity = new Vector2(side.x * speed, _rigidbody.velocity.y);
         _rigidbody.velocity = velocity;
     }
 
@@ -60,7 +82,15 @@ public class Enemy : Character {
     {
         Vector2 side = transform.InverseTransformPoint(target);
         side.Normalize();
-        Vector2 velocity = new Vector2(side.x * speed, _rigidbody.velocity.y);
+		if (side.x > 0)
+		{
+			horizontal = 1;
+		}
+		else
+		{
+			horizontal = -1;
+		}
+		Vector2 velocity = new Vector2(side.x * speed, _rigidbody.velocity.y);
         _rigidbody.velocity = velocity;
     }
 
@@ -85,23 +115,11 @@ public class Enemy : Character {
         }
     }
 
-    void OnTriggerEnter2D(Collider2D col)
-    {
-        if (col.tag == "PlatformLevel")
-        {
-            level.level = col.GetComponent<PlatformLevel>().level;
-        }
-    }
-
 	protected override void OnOnTriggerStay2D(Collider2D col)
     {
         if (col.tag == "JumpBox")
         {
             Jump();
-        }
-        else if (col.tag == "PlatformLevel" && level.level != col.GetComponent<PlatformLevel>().level)
-        {
-            level.level = col.GetComponent<PlatformLevel>().level;
         }
     }
 }

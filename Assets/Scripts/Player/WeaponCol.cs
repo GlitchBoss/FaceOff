@@ -15,9 +15,9 @@ public class WeaponCol : MonoBehaviour {
         transform.parent.GetComponent<Melee>().Hit(col.transform, this);
     }
 
-    void OnTriggerExit2D(Collider2D col)
-    {
-        if (col.tag == "Player" && hasAttacked)
+	void OnTriggerExit2D(Collider2D col)
+	{
+		if ((col.tag == "Player" || col.tag == "Enemy") && hasAttacked)
             hasAttacked = false;
     }
 }
