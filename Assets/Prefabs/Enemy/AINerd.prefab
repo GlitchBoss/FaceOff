@@ -15,7 +15,7 @@ GameObject:
   - 114: {fileID: 11426022}
   - 114: {fileID: 11429794}
   m_Layer: 10
-  m_Name: AISmiley
+  m_Name: AINerd
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -297,7 +297,7 @@ Animator:
   m_GameObject: {fileID: 106070}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: b287a194e339a5c46893a109f154f556, type: 2}
+  m_Controller: {fileID: 9100000, guid: 25a30af26c2317e439e326a40286d26a, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -352,11 +352,11 @@ MonoBehaviour:
   damage: 5
   playerLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   character: {fileID: 0}
   anim: {fileID: 0}
   isAttacking: 0
-  col: {fileID: 0}
+  col: {fileID: 11419096}
 --- !u!114 &11419096
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -381,9 +381,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ff1ac3691ca88d4a90c7e5cdd632f4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  duration: 3
+  duration: 10
   animBool: SpecialPowerActive
-  extraHealth: 20
+  extraHealth: 25
   extraDamage: 3
   extraSpeed: 0
   maxDamage: 0
@@ -417,9 +417,9 @@ MonoBehaviour:
   speed: 5
   jumpForce: 10
   health:
-    max: 30
+    max: 15
     min: 0
-    num: 30
+    num: 15
   power:
     max: 90
     min: 0
@@ -537,7 +537,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -331795911
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 4edd97341074d764890a74ca2bde1709, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e07cd04ca5111d049aa1c4b7b21a3ef9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -567,9 +567,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 847937877
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 08c13d39506701543a796885fa111d24, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bd3ff33a977f60546bbd22db7f3b5cf5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 1
 --- !u!223 &22366576
 Canvas:
@@ -643,11 +643,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: health.max
-      value: 30
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: health.num
-      value: 30
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: power.max
@@ -673,6 +673,18 @@ Prefab:
       propertyPath: canAttack
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: duration
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: extraHealth
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 25a30af26c2317e439e326a40286d26a, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 106070}

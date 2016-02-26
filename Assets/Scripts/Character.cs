@@ -35,6 +35,14 @@ public class Character : MonoBehaviour {
 		anim = GetComponent<Animator>();
 		SP = GetComponent<SpecialPower>();
 		distToGround = _collider.bounds.extents.y;
+		if (SP.duration >= 1)
+		{
+			powerDecrease = (int)(power.max / SP.duration);
+		}
+		else
+		{
+			powerDecrease = (int)power.max;
+		}
 		StartUp();
 	}
 

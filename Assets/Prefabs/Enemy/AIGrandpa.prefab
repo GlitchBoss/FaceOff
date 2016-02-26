@@ -75,6 +75,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 447228}
   - 212: {fileID: 21287850}
+  - 58: {fileID: 5866956}
+  - 114: {fileID: 11489080}
   m_Layer: 10
   m_Name: Image
   m_TagString: Untagged
@@ -93,8 +95,9 @@ GameObject:
   - 50: {fileID: 5014470}
   - 58: {fileID: 5815016}
   - 95: {fileID: 9589560}
-  - 114: {fileID: 11400612}
+  - 114: {fileID: 11482612}
   - 114: {fileID: 11457602}
+  - 114: {fileID: 11485392}
   m_Layer: 10
   m_Name: AIGrandpa
   m_TagString: Enemy
@@ -257,6 +260,20 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.55
+--- !u!58 &5866956
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 147932}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 2
 --- !u!61 &6180780
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -305,42 +322,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &11400612
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 150082}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41869d99c90117a4c918ca643bd93909, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 8
-  jumpForce: 10
-  health:
-    max: 20
-    min: 0
-    num: 20
-  power:
-    max: 100
-    min: 0
-    num: 0
-  healthSlider: {fileID: 0}
-  powerSlider: {fileID: 0}
-  powerDecrease: 20
-  powerIncrease: 15
-  useSecondaryControls: 0
-  facingRight: 0
-  lost: 0
-  engaged: 0
-  keys: 0000000000000000000000000000000000000000
-  ground:
-    serializedVersion: 2
-    m_Bits: 256
-  winGO: {fileID: 108794}
-  anim: {fileID: 0}
-  weapon: {fileID: 0}
 --- !u!114 &11404162
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -377,7 +358,7 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 512
-  player: {fileID: 0}
+  character: {fileID: 0}
   anim: {fileID: 0}
   isAttacking: 0
   col: {fileID: 11454352}
@@ -393,6 +374,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hasAttacked: 0
+  enemyTag: Player
 --- !u!114 &11457602
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -430,6 +412,75 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &11482612
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 150082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7e1989a4169d834fb9aa88b07b1f8a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 8
+  jumpForce: 10
+  health:
+    max: 20
+    min: 0
+    num: 20
+  power:
+    max: 100
+    min: 0
+    num: 0
+  healthSlider: {fileID: 0}
+  powerSlider: {fileID: 0}
+  powerDecrease: 30
+  powerIncrease: 15
+  useSecondaryControls: 0
+  facingRight: 0
+  lost: 0
+  engaged: 0
+  ground:
+    serializedVersion: 2
+    m_Bits: 256
+  winGO: {fileID: 108794}
+  anim: {fileID: 0}
+  weapon: {fileID: 0}
+  level: {fileID: 0}
+  image: {fileID: 0}
+  _rigidbody: {fileID: 0}
+  distToGround: 0
+  _collider: {fileID: 0}
+  SP: {fileID: 0}
+  path: []
+  showPath: 1
+  shouldAttack: 0
+  fireRate: 1
+  canAttack: 1
+--- !u!114 &11485392
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 150082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4841e2ee6f8028488a3864069f7cc86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  level: 0
+--- !u!114 &11489080
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 147932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74efb24aaf306c040b3c781107fd524a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &21208290
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -581,6 +632,38 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_TagString
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: health.max
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: health.num
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: power.max
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: powerIncrease
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: fireRate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: winGO
+      value: 
+      objectReference: {fileID: 108794}
+    - target: {fileID: 0}
+      propertyPath: ground.m_Bits
+      value: 256
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: duration
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

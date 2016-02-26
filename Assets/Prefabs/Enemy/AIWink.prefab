@@ -9,6 +9,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 443080}
   - 212: {fileID: 21228906}
+  - 58: {fileID: 5811092}
+  - 114: {fileID: 11457374}
   m_Layer: 10
   m_Name: Image
   m_TagString: Untagged
@@ -44,8 +46,9 @@ GameObject:
   - 50: {fileID: 5031814}
   - 58: {fileID: 5873580}
   - 95: {fileID: 9597152}
-  - 114: {fileID: 11437150}
+  - 114: {fileID: 11406382}
   - 114: {fileID: 11412084}
+  - 114: {fileID: 11434230}
   m_Layer: 10
   m_Name: AIWink
   m_TagString: Enemy
@@ -272,6 +275,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!58 &5811092
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 117834}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 2
 --- !u!58 &5873580
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -334,6 +351,52 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &11406382
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 130852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7e1989a4169d834fb9aa88b07b1f8a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 8
+  jumpForce: 10
+  health:
+    max: 35
+    min: 0
+    num: 35
+  power:
+    max: 90
+    min: 0
+    num: 0
+  healthSlider: {fileID: 0}
+  powerSlider: {fileID: 0}
+  powerDecrease: 60
+  powerIncrease: 10
+  useSecondaryControls: 0
+  facingRight: 0
+  lost: 0
+  engaged: 0
+  ground:
+    serializedVersion: 2
+    m_Bits: 256
+  winGO: {fileID: 183274}
+  anim: {fileID: 0}
+  weapon: {fileID: 0}
+  level: {fileID: 0}
+  image: {fileID: 0}
+  _rigidbody: {fileID: 0}
+  distToGround: 0
+  _collider: {fileID: 0}
+  SP: {fileID: 0}
+  path: []
+  showPath: 0
+  shouldAttack: 0
+  fireRate: 1
+  canAttack: 1
 --- !u!114 &11412084
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -367,6 +430,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hasAttacked: 0
+  enemyTag: Player
 --- !u!114 &11433306
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -382,7 +446,7 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 512
-  player: {fileID: 0}
+  character: {fileID: 0}
   anim: {fileID: 0}
   isAttacking: 0
   col: {fileID: 0}
@@ -407,7 +471,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
---- !u!114 &11437150
+--- !u!114 &11434230
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -415,34 +479,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 130852}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41869d99c90117a4c918ca643bd93909, type: 3}
+  m_Script: {fileID: 11500000, guid: f4841e2ee6f8028488a3864069f7cc86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 8
-  jumpForce: 10
-  health:
-    max: 35
-    min: 0
-    num: 35
-  power:
-    max: 90
-    min: 0
-    num: 0
-  healthSlider: {fileID: 0}
-  powerSlider: {fileID: 0}
-  powerDecrease: 60
-  powerIncrease: 10
-  useSecondaryControls: 0
-  facingRight: 0
-  lost: 0
-  engaged: 0
-  keys: 0000000000000000000000000000000000000000
-  ground:
-    serializedVersion: 2
-    m_Bits: 256
-  winGO: {fileID: 183274}
-  anim: {fileID: 0}
-  weapon: {fileID: 0}
+  level: 0
 --- !u!114 &11440464
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -459,6 +499,17 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &11457374
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 117834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74efb24aaf306c040b3c781107fd524a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &21222828
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -632,6 +683,14 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_TagString
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: ground.m_Bits
+      value: 256
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: fireRate
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

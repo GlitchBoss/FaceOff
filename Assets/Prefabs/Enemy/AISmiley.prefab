@@ -352,7 +352,7 @@ MonoBehaviour:
   damage: 5
   playerLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   character: {fileID: 0}
   anim: {fileID: 0}
   isAttacking: 0

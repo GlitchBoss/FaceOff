@@ -31,6 +31,10 @@ public class Enemy : Character {
 
 		if (shouldAttack && canAttack)
 		{
+			if(power.num == power.max)
+			{
+				SP.Engage();
+			}
 			weapon.Attack(IsGrounded());
 			canAttack = false;
 			StartCoroutine(DelayAttack(fireRate));
@@ -74,7 +78,9 @@ public class Enemy : Character {
 
     void MoveToPlayer()
     {
-        side = transform.InverseTransformPoint(player.transform.position);
+		if (lost)
+			return;
+		side = transform.InverseTransformPoint(player.transform.position);
         side.Normalize();
 		if (side.x > 0)
 		{
@@ -90,7 +96,9 @@ public class Enemy : Character {
 
     void MoveToNode(Vector2 target)
     {
-        Vector2 side = transform.InverseTransformPoint(target);
+		if (lost)
+			return;
+		Vector2 side = transform.InverseTransformPoint(target);
         side.Normalize();
 		if (side.x > 0)
 		{
@@ -106,7 +114,9 @@ public class Enemy : Character {
 
     void Jump()
     {
-        if(IsGrounded() && _rigidbody.velocity == new Vector2(_rigidbody.velocity.x, 0) && toHigherLevel)
+		if (lost)
+			return;
+		if (IsGrounded() && _rigidbody.velocity == new Vector2(_rigidbody.velocity.x, 0) && toHigherLevel)
             _rigidbody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
     }
 
@@ -127,6 +137,8 @@ public class Enemy : Character {
 
 	protected override void OnOnTriggerStay2D(Collider2D col)
     {
+		if (lost)
+			return;
         if (col.tag == "JumpBox")
         {
             Jump();
