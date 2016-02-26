@@ -95,6 +95,7 @@ GameObject:
   - 95: {fileID: 9589560}
   - 114: {fileID: 11400612}
   - 114: {fileID: 11457602}
+  - 114: {fileID: 11400510}
   m_Layer: 9
   m_Name: Grandpa
   m_TagString: Player
@@ -305,6 +306,18 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &11400510
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 150082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4841e2ee6f8028488a3864069f7cc86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  level: 0
 --- !u!114 &11400612
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -334,13 +347,19 @@ MonoBehaviour:
   facingRight: 0
   lost: 0
   engaged: 0
-  keys: 0000000000000000000000000000000000000000
   ground:
     serializedVersion: 2
     m_Bits: 256
   winGO: {fileID: 108794}
   anim: {fileID: 0}
   weapon: {fileID: 0}
+  level: {fileID: 0}
+  image: {fileID: 0}
+  _rigidbody: {fileID: 0}
+  distToGround: 0
+  _collider: {fileID: 0}
+  SP: {fileID: 0}
+  keys: 0000000000000000000000000000000000000000
 --- !u!114 &11404162
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -377,7 +396,7 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 512
-  player: {fileID: 0}
+  character: {fileID: 0}
   anim: {fileID: 0}
   isAttacking: 0
   col: {fileID: 11454352}
@@ -393,6 +412,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hasAttacked: 0
+  enemyTag: 
 --- !u!114 &11457602
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -405,10 +425,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   duration: 5
+  animBool: SpecialPowerActive
   extraHealth: 30
   extraDamage: 10
   extraSpeed: 5
-  animBool: SpecialPowerActive
+  maxDamage: 0
+  radius: 0
+  delay: 0
+  flash: {fileID: 0}
+  type: 0
 --- !u!114 &11461898
 MonoBehaviour:
   m_ObjectHideFlags: 1

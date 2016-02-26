@@ -7,12 +7,14 @@ public class Enemy : Character {
     public Transform[] path;
     public bool showPath;
 	public bool shouldAttack;
+	public float fireRate;
 
     bool toHigherLevel;
     Player player;
     Vector2 side, velocity;
     PathFinding pathFinding;
 	int horizontal = 1;
+	public bool canAttack = true;
 
 	protected override void StartUp()
     {
@@ -27,9 +29,11 @@ public class Enemy : Character {
 		else if (horizontal < 0)
 			image.localScale = new Vector3(-1, 1, 1);
 
-		if (shouldAttack)
+		if (shouldAttack && canAttack)
 		{
 			weapon.Attack(IsGrounded());
+			canAttack = false;
+			StartCoroutine(DelayAttack(fireRate));
 		}
 		if (anim.GetCurrentAnimatorStateInfo(0).IsName("PlayerIdle"))
 			weapon.isAttacking = false;
@@ -61,6 +65,12 @@ public class Enemy : Character {
             MoveToNode(path[(int)level.level].position);
 		}
     }
+
+	IEnumerator DelayAttack(float delay)
+	{
+		yield return new WaitForSeconds(delay);
+		canAttack = true;
+	}
 
     void MoveToPlayer()
     {
