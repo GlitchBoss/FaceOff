@@ -8,6 +8,7 @@ TagManager:
   - SpawnPoint2
   - Enemy
   - PlatformLevel
+  - JumpBox
   layers:
   - Default
   - TransparentFX

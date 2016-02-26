@@ -173,4 +173,12 @@ public class Player : MonoBehaviour {
             level.level = col.GetComponent<PlatformLevel>().level;
         }
     }
+
+    void OnTriggerStay2D(Collider2D col)
+    {
+        if (col.tag == "PlatformLevel" && level.level != col.GetComponent<PlatformLevel>().level)
+        {
+            level.level = col.GetComponent<PlatformLevel>().level;
+        }
+    }
 }
