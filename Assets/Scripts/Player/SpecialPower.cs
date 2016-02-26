@@ -22,14 +22,14 @@ public class SpecialPower : MonoBehaviour {
         Bomb
     }
 
-    Player player;
+	Character player;
     int originalHealth, originalDamage;
     float originalSpeed;
     float minDist;
 
     void Start()
     {
-        player = GetComponent<Player>();
+        player = GetComponent<Character>();
         minDist = GetComponent<CircleCollider2D>().radius * 2;
     }
 
@@ -64,7 +64,7 @@ public class SpecialPower : MonoBehaviour {
     void EngageBomb()
     {
         StartCoroutine(Timer());
-        Player otherPlayer;
+		Character otherPlayer;
         if(GameManager.instance.players.IndexOf(player) == 0)
         {
             otherPlayer = GameManager.instance.players[1];

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Melee : Weapon {
+public class EnemyMelee : EnemyWeapon {
 
     protected override void StartUp()
     {
@@ -18,11 +18,11 @@ public class Melee : Weapon {
         col.hasAttacked = false;
     }
 
-    public void Hit(Player _player, WeaponCol _col)
+    public void Hit(Transform target, WeaponCol _col)
     {
         if(isAttacking)
         {
-            _player.TakeDamage(damage);
+            target.GetComponent<Player>().TakeDamage(damage);
             _col.hasAttacked = true;
         }
     }

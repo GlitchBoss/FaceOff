@@ -6,11 +6,11 @@ using UnityEngine.Analytics;
 
 public class GameManager : MonoBehaviour {
 
-    public Player[] faces;
+    public Character[] faces;
 
     [HideInInspector]
     public int player1Face, player2Face;
-    public List<Player> players;
+    public List<Character> players;
 
     GameObject[] spawnPoints1, spawnPoints2;
     UIManager UIM;
@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour {
         switch (SceneManager.GetActiveScene().name)
         {
             case "Arena":
-                players = new List<Player>();
+                players = new List<Character>();
                 SpawnPlayers();
                 break;
         }
@@ -49,10 +49,10 @@ public class GameManager : MonoBehaviour {
         spawnPoints2 = GameObject.FindGameObjectsWithTag("SpawnPoint2");
         int index = Random.Range(0, spawnPoints1.Length);
 
-        Player p1 = (Player)Instantiate(faces[player1Face], 
+		Character p1 = (Character)Instantiate(faces[player1Face], 
             spawnPoints1[index].transform.position, Quaternion.identity);
 
-        Player p2 = (Player)Instantiate(faces[player2Face], 
+		Character p2 = (Character)Instantiate(faces[player2Face], 
             spawnPoints2[index].transform.position, Quaternion.identity);
         
         p1.useSecondaryControls = true;
@@ -68,10 +68,10 @@ public class GameManager : MonoBehaviour {
         
     }
 
-    public void GameOver(Player loser)
+    public void GameOver(Character loser)
     {
         int i = players.IndexOf(loser);
-        Player winner;
+		Character winner;
         if (i == 1)
             winner = players[0];
         else if (i == 0)

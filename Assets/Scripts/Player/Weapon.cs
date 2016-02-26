@@ -9,6 +9,7 @@ public class Weapon : MonoBehaviour {
     public Animator anim;
     public bool isAttacking;
     public WeaponCol col;
+    public bool singlePlayer;
 
     void Start ()
     {

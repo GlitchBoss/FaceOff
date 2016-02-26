@@ -2,24 +2,17 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Enemy : MonoBehaviour {
+public class Enemy : Character {
 
-    public bool showPath;
-    public float jumpForce;
-    public float speed;
-    public LayerMask ground;
-    public PlatformLevel level;
     public Transform[] path;
-    public bool toHigherLevel;
+    public bool showPath;
 
-    Rigidbody2D _rigidbody;
-    CircleCollider2D _collider;
-    float distToGround;
+    bool toHigherLevel;
     Player player;
     Vector2 side, velocity;
     PathFinding pathFinding;
 
-    void Start()
+	protected override void StartUp()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
         _collider = GetComponent<CircleCollider2D>();
@@ -29,7 +22,7 @@ public class Enemy : MonoBehaviour {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
     }
 
-    void Update()
+	protected override void OnUpdate()
     {
         if (player.level.level == level.level)
         {
@@ -71,12 +64,6 @@ public class Enemy : MonoBehaviour {
         _rigidbody.velocity = velocity;
     }
 
-    bool IsGrounded()
-    {
-        return Physics2D.Raycast(transform.position, -Vector3.up,
-            distToGround + 0.1f, ground);
-    }
-
     void Jump()
     {
         if(IsGrounded() && _rigidbody.velocity == new Vector2(_rigidbody.velocity.x, 0) && toHigherLevel)
@@ -106,7 +93,7 @@ public class Enemy : MonoBehaviour {
         }
     }
 
-    void OnTriggerStay2D(Collider2D col)
+	protected override void OnOnTriggerStay2D(Collider2D col)
     {
         if (col.tag == "JumpBox")
         {
