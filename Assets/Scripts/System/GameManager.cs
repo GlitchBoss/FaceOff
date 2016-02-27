@@ -9,13 +9,17 @@ public class GameManager : MonoBehaviour {
     public Character[] faces;
 	public Character[] enemies;
 	public bool singlePlayer;
+	public float gameTime;
+	public int[] score;
 
     [HideInInspector]
     public int player1Face, player2Face, enemyFace;
-    public List<Character> players;
+	[HideInInspector]
+	public List<Character> players;
 
     GameObject[] spawnPoints1, spawnPoints2;
     UIManager UIM;
+	float time;
 
     public static GameManager instance;
 
@@ -41,16 +45,26 @@ public class GameManager : MonoBehaviour {
             case "Arena":
                 players = new List<Character>();
                 SpawnPlayers(singlePlayer = false);
+				UIM.StartTimer(time);
+				UIM.UpdateScore(score);
                 break;
 			case "SinglePlayer":
 				players = new List<Character>();
 				SpawnPlayers(singlePlayer = true);
+				UIM.StartTimer(time);
+				UIM.UpdateScore(score);
+				break;
+			case "MainMenu":
+				score[0] = 0;
+				score[1] = 0;
+				time = gameTime;
 				break;
         }
     }
 
     void SpawnPlayers(bool singlePlayer)
     {
+		players.Clear();
         spawnPoints1 = GameObject.FindGameObjectsWithTag("SpawnPoint1");
         spawnPoints2 = GameObject.FindGameObjectsWithTag("SpawnPoint2");
         int index = Random.Range(0, spawnPoints1.Length);
@@ -75,15 +89,35 @@ public class GameManager : MonoBehaviour {
         players.Add(p2);
     }
 
-    public void GameOver(Character loser)
-    {
-        int i = players.IndexOf(loser);
-		Character winner;
-        if (i == 1)
-            winner = players[0];
-        else if (i == 0)
-            winner = players[1];
-        else winner = players[0];
-        winner.Win();
-    }
+	public void AddScore(Character scorer)
+	{
+		int index = players.IndexOf(scorer);
+		if(index == 0)
+		{
+			score[1]++;
+			players[1].Win();
+		}
+		else
+		{
+			score[0]++;
+			players[0].Win();
+		}
+		//UIM.UpdateScore(score);
+		//SpawnPlayers(singlePlayer);
+		time = UIM.timer;
+		StartCoroutine(Restart(1));
+	}
+
+	public void Reset()
+	{
+		score[0] = 0;
+		score[1] = 0;
+		time = gameTime;
+	}
+
+	IEnumerator Restart(float delay)
+	{
+		yield return new WaitForSeconds(delay);
+		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+	}
 }

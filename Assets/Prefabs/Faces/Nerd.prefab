@@ -346,7 +346,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hasAttacked: 0
-  enemyTag: 
+  enemyTag: Player
 --- !u!114 &11452144
 MonoBehaviour:
   m_ObjectHideFlags: 1

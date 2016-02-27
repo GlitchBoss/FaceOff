@@ -110,7 +110,7 @@ public class Character : MonoBehaviour {
 
 	public void Lose()
 	{
-		GameManager.instance.GameOver(this);
+		GameManager.instance.AddScore(this);
 		lost = true;
 	}
 

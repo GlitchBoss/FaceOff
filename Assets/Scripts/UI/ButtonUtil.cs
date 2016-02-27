@@ -28,6 +28,11 @@ public class ButtonUtil : MonoBehaviour {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
+	public void Reset()
+	{
+		GameManager.instance.Reset();
+	}
+
     public void LoadLevel(string level)
     {
         SceneManager.LoadScene(level);
