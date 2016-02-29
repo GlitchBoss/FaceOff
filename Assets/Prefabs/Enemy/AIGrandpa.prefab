@@ -456,7 +456,7 @@ MonoBehaviour:
   path: []
   showPath: 1
   shouldAttack: 0
-  fireRate: 1
+  fireRate: 0.7
   canAttack: 1
 --- !u!114 &11485392
 MonoBehaviour:
@@ -651,7 +651,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: fireRate
-      value: 1
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: winGO
