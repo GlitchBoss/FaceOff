@@ -744,18 +744,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dfadfb578753c948aad76eee129a60c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player1Faces: {fileID: 176506016}
-  player2Faces: {fileID: 176506015}
-  playerFaces: {fileID: 235019597}
-  enemyFaces: {fileID: 235019598}
-  p1Health: {fileID: 0}
-  p2Health: {fileID: 0}
-  p1Power: {fileID: 0}
-  p2Power: {fileID: 0}
-  timerText: {fileID: 0}
-  scoreText: {fileID: 0}
+  scrollSnaps:
+  - {fileID: 176506016}
+  - {fileID: 176506015}
+  - {fileID: 235019597}
+  - {fileID: 235019598}
+  sliders: []
+  text: []
   finishPanel: {fileID: 0}
-  finishScoreText: {fileID: 0}
   BU: {fileID: 0}
   timer: 0
   timerResetNum: 0

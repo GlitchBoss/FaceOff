@@ -79,10 +79,10 @@ public class GameManager : MonoBehaviour {
 			p2 = (Character)Instantiate(faces[player2Face],
 				spawnPoints2[index].transform.position, Quaternion.identity);
 		p1.useSecondaryControls = true;
-        p1.healthSlider = UIM.p1Health;
-        p1.powerSlider = UIM.p1Power;
-        p2.healthSlider = UIM.p2Health;
-        p2.powerSlider = UIM.p2Power;
+        p1.healthSlider = UIM.sliders[0];
+        p1.powerSlider = UIM.sliders[2];
+        p2.healthSlider = UIM.sliders[1];
+        p2.powerSlider = UIM.sliders[3];
         p1.SetControls();
         p2.SetControls();
         players.Add(p1);

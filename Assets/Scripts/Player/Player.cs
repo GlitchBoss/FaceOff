@@ -6,6 +6,8 @@ public class Player : Character {
 
     public KeyCode[] keys;
 
+	int horizontal;
+
     protected override void StartUp()
     {
         UpdateHealthSlider();
@@ -46,7 +48,8 @@ public class Player : Character {
             weapon.col.hasAttacked = true;
             return;
         }
-        if (Input.GetKeyDown(keys[0]) && IsGrounded())
+#if UNITY_EDITOR
+		if (Input.GetKeyDown(keys[0]) && IsGrounded())
         {
             _rigidbody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         }
@@ -55,12 +58,7 @@ public class Player : Character {
         {
             weapon.Attack(IsGrounded());
         }
-        if (anim.GetCurrentAnimatorStateInfo(0).IsName("PlayerIdle"))
-            weapon.isAttacking = false;
-        else
-            weapon.isAttacking = true;
 
-        int horizontal = 0;
         if (Input.GetKey(keys[2]))
         {
             horizontal = 1;
@@ -78,6 +76,11 @@ public class Player : Character {
         {
             SP.Engage();
         }
+#endif
+		if (anim.GetCurrentAnimatorStateInfo(0).IsName("PlayerIdle"))
+            weapon.isAttacking = false;
+        else
+            weapon.isAttacking = true;
 
         if(horizontal > 0)
             transform.localScale = new Vector3(1, 1, 1);
@@ -87,4 +90,33 @@ public class Player : Character {
         _rigidbody.velocity = new Vector2(horizontal * speed, _rigidbody.velocity.y);
         UpdatePowerSlider(engaged);
     }
+
+	protected override void OnMove(Movement movement)
+	{
+		switch (movement)
+		{
+			case Movement.Left:
+					horizontal = -1;
+					facingRight = false;
+				break;
+			case Movement.Right:
+					horizontal = 1;
+					facingRight = true;
+				break;
+			case Movement.Jump:
+				if(IsGrounded())
+					_rigidbody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+				break;
+			case Movement.Attack:
+				weapon.Attack(IsGrounded());
+				break;
+			case Movement.SpecialPower:
+				if(power.num >= power.max)
+					SP.Engage();
+				break;
+			case Movement.Stop:
+				horizontal = 0;
+				break;
+		}
+	}
 }

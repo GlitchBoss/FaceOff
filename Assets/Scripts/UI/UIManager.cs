@@ -5,29 +5,31 @@ using System.Collections;
 
 public class UIManager : MonoBehaviour {
 
-    public ScrollRectSnap player1Faces, player2Faces;
-	public ScrollRectSnap playerFaces, enemyFaces;
-    public Slider p1Health, p2Health, p1Power, p2Power;
-	public Text timerText, scoreText;
+	[Tooltip("0=player1Faces, 1=player2Faces, 2=playerFaces, 3=enemyFaces")]
+	public ScrollRectSnap[] scrollSnaps;
+	[Tooltip("0=p1Health, 1=p2Health, 2=p1Power, 3=p2Power")]
+	public Slider[] sliders;
+	[Tooltip("0=timerText, 1=scoreText, 2=finishScoreText")]
+	public Text[] text;
 	public GameObject finishPanel;
-	public Text finishScoreText;
 	public ButtonUtil BU;
 
 	[HideInInspector]
 	public float timer, timerResetNum;
+
 	bool hasStarted = true;
 
     public void LoadArena()
     {
-        GameManager.instance.player1Face = player1Faces.currentImg;
-        GameManager.instance.player2Face = player2Faces.currentImg;       
+        GameManager.instance.player1Face = scrollSnaps[0].currentImg;
+        GameManager.instance.player2Face = scrollSnaps[1].currentImg;       
         SceneManager.LoadScene("Arena");
     }
 
 	public void LoadSinglePlayer()
 	{
-		GameManager.instance.player1Face = playerFaces.currentImg;
-		GameManager.instance.enemyFace = enemyFaces.currentImg;
+		GameManager.instance.player1Face = scrollSnaps[2].currentImg;
+		GameManager.instance.enemyFace = scrollSnaps[3].currentImg;
 		SceneManager.LoadScene("SinglePlayer");
 	}
 
@@ -36,12 +38,12 @@ public class UIManager : MonoBehaviour {
 		string minutes = Mathf.Floor(timer / 60).ToString("00");
 		string seconds = Mathf.Floor(timer % 60).ToString("00");
 
-		timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+		text[0].text = string.Format("{0:00}:{1:00}", minutes, seconds);
 	}
 
 	public void UpdateScore(int[] score)
 	{
-		scoreText.text = string.Format("{0}-{1}", score[0], score[1]);
+		text[1].text = string.Format("{0}-{1}", score[0], score[1]);
 	}
 
 	public void StartTimer(float time)
@@ -58,11 +60,16 @@ public class UIManager : MonoBehaviour {
 		if (timer <= 0)
 		{
 			StopTimer();
-			timerText.text = "00:00";
+			text[0].text = "00:00";
 			return;
 		}
 		timer--;
 		UpdateText();
+	}
+
+	public void Move(int value)
+	{
+		GameManager.instance.players[0].Move(value);
 	}
 
 	public void StopTimer()
@@ -80,7 +87,7 @@ public class UIManager : MonoBehaviour {
 	{
 		BU.PauseGame();
 		int[] score = GameManager.instance.score;
-		finishScoreText.text = string.Format("{0}-{1}", score[0], score[1]);
+		text[2].text = string.Format("{0}-{1}", score[0], score[1]);
 		finishPanel.SetActive(true);
 	}
 }

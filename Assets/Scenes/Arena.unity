@@ -492,18 +492,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dfadfb578753c948aad76eee129a60c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player1Faces: {fileID: 0}
-  player2Faces: {fileID: 0}
-  playerFaces: {fileID: 0}
-  enemyFaces: {fileID: 0}
-  p1Health: {fileID: 1654514453}
-  p2Health: {fileID: 1242240388}
-  p1Power: {fileID: 259846622}
-  p2Power: {fileID: 232510124}
-  timerText: {fileID: 629512446}
-  scoreText: {fileID: 1984938868}
+  scrollSnaps: []
+  sliders:
+  - {fileID: 1654514453}
+  - {fileID: 1242240388}
+  - {fileID: 259846622}
+  - {fileID: 232510124}
+  text:
+  - {fileID: 629512446}
+  - {fileID: 1984938868}
+  - {fileID: 1938195831}
   finishPanel: {fileID: 2074924671}
-  finishScoreText: {fileID: 1938195831}
   BU: {fileID: 1099148655}
   timer: 0
   timerResetNum: 0

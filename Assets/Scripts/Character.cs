@@ -25,6 +25,16 @@ public class Character : MonoBehaviour {
 	[HideInInspector]
 	public SpecialPower SP;
 
+	public enum Movement
+	{
+		Left = 1,
+		Right = 2,
+		Jump = 3,
+		Attack = 4,
+		SpecialPower = 5,
+		Stop = 6
+	}
+
 	void Start()
 	{
 		image = transform.FindChild("Image").transform;
@@ -58,11 +68,15 @@ public class Character : MonoBehaviour {
 
 	void OnTriggerStay2D(Collider2D col) { OnOnTriggerStay2D(col);	}
 
+	public void Move(int movement) { OnMove((Movement)movement); }
+
 	protected virtual void StartUp() { }
 
 	protected virtual void OnSetControls() { }
 
 	protected virtual void OnUpdate() { }
+
+	protected virtual void OnMove(Movement movement) { }
 
 	protected virtual void OnOnTriggerStay2D(Collider2D col) { }
 
