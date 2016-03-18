@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEngine.SceneManagement;
+using GLITCH.Utilities;
 
 public class ButtonUtil : MonoBehaviour {
 
@@ -13,15 +13,13 @@ public class ButtonUtil : MonoBehaviour {
 
     public void PauseGame()
     {
-        Time.timeScale = 0.0f;
-        Time.fixedDeltaTime = 0.0f;
-    }
+		ButtonUtility.Pause_Game();
+	}
 
     public void ResumeGame()
     {
-        Time.timeScale = 1.0f;
-        Time.fixedDeltaTime = 0.02f;
-    }
+		ButtonUtility.Resume_Game();
+	}
 
     public void RestartGame()
     {
