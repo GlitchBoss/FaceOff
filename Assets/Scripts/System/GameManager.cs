@@ -104,7 +104,7 @@ public class GameManager : MonoBehaviour {
 		}
 		//UIM.UpdateScore(score);
 		//SpawnPlayers(singlePlayer);
-		time = UIM.timer;
+		//time = UIM.timer;
 		StartCoroutine(Restart(1));
 	}
 

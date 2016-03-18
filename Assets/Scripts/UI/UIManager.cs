@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using GLITCH.Helpers;
 
 public class UIManager : MonoBehaviour {
 
@@ -15,9 +16,10 @@ public class UIManager : MonoBehaviour {
 	public ButtonUtil BU;
 
 	[HideInInspector]
-	public float timer, timerResetNum;
+	//public float timer, timerResetNum;
 
 	bool hasStarted = true;
+	Timer timer;
 
     public void LoadArena()
     {
@@ -35,10 +37,10 @@ public class UIManager : MonoBehaviour {
 
 	void UpdateText()
 	{
-		string minutes = Mathf.Floor(timer / 60).ToString("00");
-		string seconds = Mathf.Floor(timer % 60).ToString("00");
+		//	string minutes = Mathf.Floor(timer / 60).ToString("00");
+		//	string seconds = Mathf.Floor(timer % 60).ToString("00");
 
-		text[0].text = string.Format("{0:00}:{1:00}", minutes, seconds);
+		//	text[0].text = string.Format("{0:00}:{1:00}", minutes, seconds);
 	}
 
 	public void UpdateScore(int[] score)
@@ -48,23 +50,25 @@ public class UIManager : MonoBehaviour {
 
 	public void StartTimer(float time)
 	{
-		timer = time;
-		timerResetNum = timer;
-		UpdateText();
-		InvokeRepeating("DecreaseTimeRemaining", 1.0f, 1.0f);
-		hasStarted = true;
+		timer = new Timer(time, true, 10, Timer.Format.DoubleDigitWithColon, text[0]);
+		timer.StartTimer();
+		//timer = time;
+		//timerResetNum = timer;
+		//UpdateText();
+		//InvokeRepeating("DecreaseTimeRemaining", 1.0f, 1.0f);
+		//hasStarted = true;
 	}
 
 	void DecreaseTimeRemaining()
 	{
-		if (timer <= 0)
-		{
-			StopTimer();
-			text[0].text = "00:00";
-			return;
-		}
-		timer--;
-		UpdateText();
+		//if (timer <= 0)
+		//{
+		//	StopTimer();
+		//	text[0].text = "00:00";
+		//	return;
+		//}
+		//timer--;
+		//UpdateText();
 	}
 
 	public void Move(int value)
@@ -74,12 +78,13 @@ public class UIManager : MonoBehaviour {
 
 	public void StopTimer()
 	{
-		if (!hasStarted)
-			return;
-		CancelInvoke("DecreaseTimeRemaining");
-		//CancelInvoke("Flash");
-		hasStarted = false;
-		timer = timerResetNum;
+		//if (!hasStarted)
+		//	return;
+		//CancelInvoke("DecreaseTimeRemaining");
+		////CancelInvoke("Flash");
+		//hasStarted = false;
+		//timer = timerResetNum;
+		timer.StopTimer();
 		GameOver();
 	}
 
