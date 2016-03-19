@@ -98,6 +98,8 @@ GameObject:
   - 114: {fileID: 11482612}
   - 114: {fileID: 11457602}
   - 114: {fileID: 11485392}
+  - 114: {fileID: 11495832}
+  - 114: {fileID: 11423722}
   m_Layer: 10
   m_Name: AIGrandpa
   m_TagString: Enemy
@@ -254,7 +256,7 @@ CircleCollider2D:
   m_GameObject: {fileID: 150082}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 810f1530aeee9604b96c89553dd21f16, type: 2}
+  m_Material: {fileID: 6200000, guid: d302a04be899d604bad01d586edfd739, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
@@ -362,6 +364,23 @@ MonoBehaviour:
   anim: {fileID: 0}
   isAttacking: 0
   col: {fileID: 11454352}
+--- !u!114 &11423722
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 150082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae41e89cdf761b84092ca45d086a38ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  power:
+    max: 0
+    min: 0
+    num: 0
+  timeUntilFull: 4.5
+  powerSlider: {fileID: 0}
 --- !u!114 &11454352
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -425,18 +444,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 8
   jumpForce: 10
-  health:
-    max: 20
-    min: 0
-    num: 20
-  power:
-    max: 100
-    min: 0
-    num: 0
-  healthSlider: {fileID: 0}
-  powerSlider: {fileID: 0}
-  powerDecrease: 30
-  powerIncrease: 15
   useSecondaryControls: 0
   facingRight: 0
   lost: 0
@@ -453,6 +460,10 @@ MonoBehaviour:
   distToGround: 0
   _collider: {fileID: 0}
   SP: {fileID: 0}
+  horizontal: 0
+  paused: 0
+  health: {fileID: 0}
+  power: {fileID: 0}
   path: []
   showPath: 1
   shouldAttack: 0
@@ -481,6 +492,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74efb24aaf306c040b3c781107fd524a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11495832
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 150082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18f8f3d68d726ca439d80e59337fd29e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health:
+    max: 50
+    min: 0
+    num: 0
+  healthSlider: {fileID: 0}
 --- !u!212 &21208290
 SpriteRenderer:
   m_ObjectHideFlags: 1

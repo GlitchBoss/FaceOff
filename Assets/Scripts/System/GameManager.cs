@@ -16,9 +16,10 @@ public class GameManager : MonoBehaviour {
     public int player1Face, player2Face, enemyFace;
 	[HideInInspector]
 	public List<Character> players;
+	[HideInInspector]
+	public UIManager UIM;
 
     GameObject[] spawnPoints1, spawnPoints2;
-    UIManager UIM;
 	float time;
 
     public static GameManager instance;
@@ -47,12 +48,14 @@ public class GameManager : MonoBehaviour {
                 SpawnPlayers(singlePlayer = false);
 				UIM.StartTimer(time);
 				UIM.UpdateScore(score);
+				UIM.SpecialPowerBtn.SetActive(false);
                 break;
 			case "SinglePlayer":
 				players = new List<Character>();
 				SpawnPlayers(singlePlayer = true);
 				UIM.StartTimer(time);
 				UIM.UpdateScore(score);
+				UIM.SpecialPowerBtn.SetActive(false);
 				break;
 			case "MainMenu":
 				score[0] = 0;
@@ -76,22 +79,24 @@ public class GameManager : MonoBehaviour {
 			p2 = (Character)Instantiate(enemies[enemyFace], 
 				spawnPoints2[index].transform.position, Quaternion.identity);
 		else
+		{
 			p2 = (Character)Instantiate(faces[player2Face],
 				spawnPoints2[index].transform.position, Quaternion.identity);
+		}
 		p1.useSecondaryControls = true;
-        p1.healthSlider = UIM.sliders[0];
-        p1.powerSlider = UIM.sliders[2];
-        p2.healthSlider = UIM.sliders[1];
-        p2.powerSlider = UIM.sliders[3];
+        p1.health.healthSlider = UIM.sliders[0];
+        p1.power.powerSlider = UIM.sliders[2];
+        p2.health.healthSlider = UIM.sliders[1];
+        p2.power.powerSlider = UIM.sliders[3];
         p1.SetControls();
         p2.SetControls();
         players.Add(p1);
         players.Add(p2);
     }
 
-	public void AddScore(Character scorer)
+	public void AddScore(Character loser)
 	{
-		int index = players.IndexOf(scorer);
+		int index = players.IndexOf(loser);
 		if(index == 0)
 		{
 			score[1]++;
@@ -104,7 +109,7 @@ public class GameManager : MonoBehaviour {
 		}
 		//UIM.UpdateScore(score);
 		//SpawnPlayers(singlePlayer);
-		//time = UIM.timer;
+		time = UIM.timer.currentTime;
 		StartCoroutine(Restart(1));
 	}
 

@@ -49,6 +49,8 @@ GameObject:
   - 114: {fileID: 11406382}
   - 114: {fileID: 11412084}
   - 114: {fileID: 11434230}
+  - 114: {fileID: 11418226}
+  - 114: {fileID: 11498170}
   m_Layer: 10
   m_Name: AIWink
   m_TagString: Enemy
@@ -297,7 +299,7 @@ CircleCollider2D:
   m_GameObject: {fileID: 130852}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 810f1530aeee9604b96c89553dd21f16, type: 2}
+  m_Material: {fileID: 6200000, guid: d302a04be899d604bad01d586edfd739, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
@@ -364,18 +366,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 8
   jumpForce: 10
-  health:
-    max: 35
-    min: 0
-    num: 35
-  power:
-    max: 90
-    min: 0
-    num: 0
-  healthSlider: {fileID: 0}
-  powerSlider: {fileID: 0}
-  powerDecrease: 60
-  powerIncrease: 10
   useSecondaryControls: 0
   facingRight: 0
   lost: 0
@@ -392,6 +382,10 @@ MonoBehaviour:
   distToGround: 0
   _collider: {fileID: 0}
   SP: {fileID: 0}
+  horizontal: 0
+  paused: 0
+  health: {fileID: 0}
+  power: {fileID: 0}
   path: []
   showPath: 0
   shouldAttack: 0
@@ -431,6 +425,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hasAttacked: 0
   enemyTag: Player
+--- !u!114 &11418226
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 130852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18f8f3d68d726ca439d80e59337fd29e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health:
+    max: 50
+    min: 0
+    num: 0
+  healthSlider: {fileID: 0}
 --- !u!114 &11433306
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -510,6 +520,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74efb24aaf306c040b3c781107fd524a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11498170
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 130852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae41e89cdf761b84092ca45d086a38ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  power:
+    max: 0
+    min: 0
+    num: 0
+  timeUntilFull: 5
+  powerSlider: {fileID: 0}
 --- !u!212 &21222828
 SpriteRenderer:
   m_ObjectHideFlags: 1

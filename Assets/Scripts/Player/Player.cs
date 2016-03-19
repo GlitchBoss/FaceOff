@@ -1,17 +1,9 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
-using System.Collections;
 
 public class Player : Character {
 
-    public KeyCode[] keys;
-
-	int horizontal;
-
-    protected override void StartUp()
-    {
-        UpdateHealthSlider();
-    }
+	[HideInInspector]
+	public KeyCode[] keys;
 
     protected override void OnSetControls()
     {
@@ -54,10 +46,14 @@ public class Player : Character {
             _rigidbody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         }
 
-        if (Input.GetKeyDown(keys[1]))
+        if (Input.GetKeyDown(keys[1]) && !lost)
         {
             weapon.Attack(IsGrounded());
-        }
+			if (GameManager.instance.singlePlayer)
+			{
+				GameManager.instance.players[1].Attack();
+			}
+		}
 
         if (Input.GetKey(keys[2]))
         {
@@ -72,7 +68,7 @@ public class Player : Character {
         else
             horizontal = 0;
 
-        if (Input.GetKeyDown(keys[4]) && power.num >= power.max)
+        if (Input.GetKeyDown(keys[4]) && power.power.num >= power.power.max)
         {
             SP.Engage();
         }
@@ -82,13 +78,16 @@ public class Player : Character {
         else
             weapon.isAttacking = true;
 
-        if(horizontal > 0)
-            transform.localScale = new Vector3(1, 1, 1);
-        else if(horizontal < 0)
-            transform.localScale = new Vector3(-1, 1, 1);
-
         _rigidbody.velocity = new Vector2(horizontal * speed, _rigidbody.velocity.y);
-        UpdatePowerSlider(engaged);
+
+		if(power.power.num >= power.power.max)
+		{
+			GameManager.instance.UIM.SpecialPowerBtn.SetActive(true);
+		}
+		else
+		{
+			GameManager.instance.UIM.SpecialPowerBtn.SetActive(false);
+		}
     }
 
 	protected override void OnMove(Movement movement)
@@ -109,9 +108,13 @@ public class Player : Character {
 				break;
 			case Movement.Attack:
 				weapon.Attack(IsGrounded());
+				if (GameManager.instance.singlePlayer)
+				{
+					GameManager.instance.players[1].Attack();
+				}
 				break;
 			case Movement.SpecialPower:
-				if(power.num >= power.max)
+				if(power.power.num >= power.power.max)
 					SP.Engage();
 				break;
 			case Movement.Stop:

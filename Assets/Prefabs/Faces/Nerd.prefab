@@ -46,6 +46,8 @@ GameObject:
   - 114: {fileID: 11454276}
   - 114: {fileID: 11495456}
   - 114: {fileID: 11427418}
+  - 114: {fileID: 11409206}
+  - 114: {fileID: 11410244}
   m_Layer: 9
   m_Name: Nerd
   m_TagString: Player
@@ -252,7 +254,7 @@ CircleCollider2D:
   m_GameObject: {fileID: 131104}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 9fb59a36b8084724c9571d0705309f83, type: 2}
+  m_Material: {fileID: 6200000, guid: d302a04be899d604bad01d586edfd739, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
@@ -322,6 +324,39 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &11409206
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 131104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18f8f3d68d726ca439d80e59337fd29e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health:
+    max: 30
+    min: 0
+    num: 0
+  healthSlider: {fileID: 0}
+--- !u!114 &11410244
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 131104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae41e89cdf761b84092ca45d086a38ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  power:
+    max: 0
+    min: 0
+    num: 0
+  timeUntilFull: 7
+  powerSlider: {fileID: 0}
 --- !u!114 &11427418
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -381,18 +416,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 8
   jumpForce: 10
-  health:
-    max: 15
-    min: 0
-    num: 15
-  power:
-    max: 100
-    min: 0
-    num: 0
-  healthSlider: {fileID: 0}
-  powerSlider: {fileID: 0}
-  powerDecrease: 10
-  powerIncrease: 7
   useSecondaryControls: 0
   facingRight: 0
   lost: 0
@@ -409,6 +432,10 @@ MonoBehaviour:
   distToGround: 0
   _collider: {fileID: 0}
   SP: {fileID: 0}
+  horizontal: 0
+  paused: 0
+  health: {fileID: 0}
+  power: {fileID: 0}
   keys: 0000000000000000000000000000000000000000
 --- !u!114 &11475688
 MonoBehaviour:

@@ -4,40 +4,32 @@ using System.Collections.Generic;
 
 public class Enemy : Character {
 
-    public Transform[] path;
     public bool showPath;
-	public bool shouldAttack;
 	public float fireRate;
+
+	[HideInInspector]
+	public Transform[] path;
+	[HideInInspector]
+	public bool shouldAttack;
 
     bool toHigherLevel;
     Player player;
     Vector2 side, velocity;
     PathFinding pathFinding;
-	int horizontal = 1;
-	public bool canAttack = true;
+	bool canAttack = true;
 
 	protected override void StartUp()
     {
         pathFinding = GameObject.Find("Path").GetComponent<PathFinding>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+		horizontal = 1;
     }
 
 	protected override void OnUpdate()
     {
-		if (horizontal > 0)
-			image.localScale = new Vector3(1, 1, 1);
-		else if (horizontal < 0)
-			image.localScale = new Vector3(-1, 1, 1);
-
-		if (shouldAttack && canAttack)
+		if (shouldAttack && canAttack && !lost)
 		{
-			if(power.num == power.max)
-			{
-				SP.Engage();
-			}
-			weapon.Attack(IsGrounded());
-			canAttack = false;
-			StartCoroutine(DelayAttack(fireRate));
+			Attack();
 		}
 		if (anim.GetCurrentAnimatorStateInfo(0).IsName("PlayerIdle"))
 			weapon.isAttacking = false;
@@ -67,6 +59,11 @@ public class Enemy : Character {
             }
             toHigherLevel = true;
             MoveToNode(path[(int)level.level].position);
+		}
+		else
+		{
+			velocity = new Vector2(side.x * speed, _rigidbody.velocity.y);
+			_rigidbody.velocity = velocity;
 		}
     }
 
@@ -134,6 +131,17 @@ public class Enemy : Character {
             }
         }
     }
+
+	protected override void OnAttack()
+	{
+		if (power.power.num == power.power.max)
+		{
+			SP.Engage();
+		}
+		weapon.Attack(IsGrounded());
+		canAttack = false;
+		StartCoroutine(DelayAttack(fireRate));
+	}
 
 	protected override void OnOnTriggerStay2D(Collider2D col)
     {

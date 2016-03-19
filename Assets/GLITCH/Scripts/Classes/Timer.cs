@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
-using System.Collections;
-using System;
 using UnityEngine.UI;
+using System.Timers;
 
 namespace GLITCH.Helpers
 {
@@ -13,9 +12,10 @@ namespace GLITCH.Helpers
 		public int flashStartTime;
 		public Format format;
 		public Text text;
+		public bool finished;
 
-		bool isRed;
-		bool isFlashing;
+		bool isRed = false;
+		bool isFlashing = false;
 
 		public enum Format
 		{
@@ -24,21 +24,14 @@ namespace GLITCH.Helpers
 			DoubleDigitWithColon
 		}
 
-		public Timer(float startTime, bool flash, int flashStartTime, Format format, Text text)
+		public void StartTimer(float time)
 		{
-			this.startTime = startTime;
-			this.flash = flash;
-			this.flashStartTime = flashStartTime;
-			this.format = format;
-			this.text = text;
-			isFlashing = false;
-			isRed = false;
-		}
-
-		public void StartTimer()
-		{
+			startTime = time;
+			currentTime = time;
+			UpdateText();
 			InvokeRepeating("DecreaseTimeRemaining", 1.0f, 1.0f);
 			hasStarted = true;
+			finished = false;
 		}
 
 		void DecreaseTimeRemaining()
@@ -48,9 +41,9 @@ namespace GLITCH.Helpers
 				StopTimer();
 				return;
 			}
-			else if(currentTime <= flashStartTime + 1 && flash && !isFlashing)
+			else if(currentTime <= flashStartTime && flash && !isFlashing)
 			{
-				InvokeRepeating("Flash", 1, 0.5f);
+				InvokeRepeating("Flash", 0.001f, 0.5f);
 			}
 			currentTime--;
 			UpdateText();
@@ -66,6 +59,7 @@ namespace GLITCH.Helpers
 			{
 				text.color = Color.red;
 			}
+			isRed = !isRed;
 		}
 
 		void UpdateText()
@@ -100,8 +94,10 @@ namespace GLITCH.Helpers
 			CancelInvoke("DecreaseTimeRemaining");
 			CancelInvoke("Flash");
 			UpdateText();
-			hasStarted = false;
 			currentTime = startTime;
+			hasStarted = false;
+			finished = true;
+			BroadcastMessage("StopTimer");
 		}
 	}
 }

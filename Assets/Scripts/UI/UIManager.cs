@@ -14,12 +14,13 @@ public class UIManager : MonoBehaviour {
 	public Text[] text;
 	public GameObject finishPanel;
 	public ButtonUtil BU;
+	public Timer timer;
+	public GameObject SpecialPowerBtn;
 
 	[HideInInspector]
-	//public float timer, timerResetNum;
+	public float timerF, timerResetNum;
 
 	bool hasStarted = true;
-	Timer timer;
 
     public void LoadArena()
     {
@@ -35,14 +36,6 @@ public class UIManager : MonoBehaviour {
 		SceneManager.LoadScene("SinglePlayer");
 	}
 
-	void UpdateText()
-	{
-		//	string minutes = Mathf.Floor(timer / 60).ToString("00");
-		//	string seconds = Mathf.Floor(timer % 60).ToString("00");
-
-		//	text[0].text = string.Format("{0:00}:{1:00}", minutes, seconds);
-	}
-
 	public void UpdateScore(int[] score)
 	{
 		text[1].text = string.Format("{0}-{1}", score[0], score[1]);
@@ -50,25 +43,8 @@ public class UIManager : MonoBehaviour {
 
 	public void StartTimer(float time)
 	{
-		timer = new Timer(time, true, 10, Timer.Format.DoubleDigitWithColon, text[0]);
-		timer.StartTimer();
-		//timer = time;
-		//timerResetNum = timer;
-		//UpdateText();
-		//InvokeRepeating("DecreaseTimeRemaining", 1.0f, 1.0f);
-		//hasStarted = true;
-	}
-
-	void DecreaseTimeRemaining()
-	{
-		//if (timer <= 0)
-		//{
-		//	StopTimer();
-		//	text[0].text = "00:00";
-		//	return;
-		//}
-		//timer--;
-		//UpdateText();
+		timer.StartTimer(time);
+		hasStarted = true;
 	}
 
 	public void Move(int value)
@@ -78,12 +54,9 @@ public class UIManager : MonoBehaviour {
 
 	public void StopTimer()
 	{
-		//if (!hasStarted)
-		//	return;
-		//CancelInvoke("DecreaseTimeRemaining");
-		////CancelInvoke("Flash");
-		//hasStarted = false;
-		//timer = timerResetNum;
+		if (!hasStarted)
+			return;
+		hasStarted = false;
 		timer.StopTimer();
 		GameOver();
 	}

@@ -1,21 +1,24 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEngine.UI;
+using GLITCH.Helpers;
 
 public class Character : MonoBehaviour {
 
 	public float speed, jumpForce;
-	public RangeFloat health, power;
-	public Slider healthSlider, powerSlider;
-	public int powerDecrease, powerIncrease;
-	public bool useSecondaryControls, facingRight, lost, engaged;
 	public LayerMask ground;
-	public GameObject winGO;
-	public Animator anim;
-	public Weapon weapon;
-	public PlatformLevel level;
-	public Transform image;
 
+	[HideInInspector]
+	public bool useSecondaryControls, facingRight, lost, engaged;
+	[HideInInspector]
+	public GameObject winGO;
+	[HideInInspector]
+	public Transform image;
+	[HideInInspector]
+	public PlatformLevel level;
+	[HideInInspector]
+	public Weapon weapon;
+	[HideInInspector]
+	public Animator anim;
 	[HideInInspector]
 	public Rigidbody2D _rigidbody;
 	[HideInInspector]
@@ -24,6 +27,14 @@ public class Character : MonoBehaviour {
 	public Collider2D _collider;
 	[HideInInspector]
 	public SpecialPower SP;
+	[HideInInspector]
+	public int horizontal;
+	[HideInInspector]
+	public bool paused;
+	[HideInInspector]
+	public CharacterHealth health;
+	[HideInInspector]
+	public CharacterPower power;
 
 	public enum Movement
 	{
@@ -35,24 +46,24 @@ public class Character : MonoBehaviour {
 		Stop = 6
 	}
 
+	void Awake()
+	{
+		health = GetComponent<CharacterHealth>();
+		power = GetComponent<CharacterPower>();
+		SP = GetComponent<SpecialPower>();
+	}
+
 	void Start()
 	{
-		image = transform.FindChild("Image").transform;
+		image = transform.FindChild("Image");
+		winGO = transform.FindChild("Winner").gameObject;
 		level = GetComponent<PlatformLevel>();
 		_rigidbody = GetComponent<Rigidbody2D>();
 		_collider = GetComponent<CircleCollider2D>();
 		weapon = GetComponentInChildren<Weapon>();
 		anim = GetComponent<Animator>();
-		SP = GetComponent<SpecialPower>();
 		distToGround = _collider.bounds.extents.y;
-		if (SP.duration >= 1)
-		{
-			powerDecrease = (int)(power.max / SP.duration);
-		}
-		else
-		{
-			powerDecrease = (int)power.max;
-		}
+		
 		StartUp();
 	}
 
@@ -60,15 +71,28 @@ public class Character : MonoBehaviour {
 
 	void Update()
 	{
-		if (lost)
+		if (lost || paused)
 			return;
+		if (horizontal > 0)
+			image.localScale = new Vector3(1, 1, 1);
+		else if (horizontal < 0)
+			image.localScale = new Vector3(-1, 1, 1);
 		OnUpdate();
-		UpdatePowerSlider(engaged);
+		power.UpdatePowerSlider(engaged);
 	}
 
-	void OnTriggerStay2D(Collider2D col) { OnOnTriggerStay2D(col);	}
+	void OnTriggerStay2D(Collider2D col) {	if (lost || paused)	return; OnOnTriggerStay2D(col);	}
 
-	public void Move(int movement) { OnMove((Movement)movement); }
+	public void Move(int movement) { if (lost || paused) return; OnMove((Movement)movement); }
+
+	public void Attack()
+	{
+		if (lost || paused)
+			return;
+		OnAttack();
+	}
+
+	protected virtual void OnAttack() { }
 
 	protected virtual void StartUp() { }
 
@@ -86,37 +110,6 @@ public class Character : MonoBehaviour {
 			distToGround + 0.1f, ground);
 	}
 
-	public void UpdateHealthSlider()
-	{
-		healthSlider.maxValue = health.max;
-		healthSlider.minValue = health.min;
-		healthSlider.value = health.num;
-	}
-
-	public void UpdatePowerSlider(bool inUse)
-	{
-		if (power.num > power.max)
-		{
-			power.num = power.max;
-			return;
-		}
-		else if (power.num < power.min)
-		{
-			power.num = power.min;
-			return;
-		}
-
-		if (inUse)
-		{
-			power.num -= powerDecrease * Time.deltaTime;
-		}
-		else
-		{
-			power.num += powerIncrease * Time.deltaTime;
-		}
-		powerSlider.value = power.num;
-	}
-
 	public void Win()
 	{
 		winGO.SetActive(true);
@@ -124,19 +117,19 @@ public class Character : MonoBehaviour {
 
 	public void Lose()
 	{
+		if (lost || paused)
+			return;
 		GameManager.instance.AddScore(this);
 		lost = true;
 	}
 
-	public void TakeDamage(float amount)
+	public void OnPauseGame()
 	{
-		if (lost)
-			return;
-		health.num -= amount;
-		if (health.num <= 0)
-		{
-			Lose();
-		}
-		UpdateHealthSlider();
+		paused = true;
+	}
+
+	public void OnResumeGame()
+	{
+		paused = false;
 	}
 }

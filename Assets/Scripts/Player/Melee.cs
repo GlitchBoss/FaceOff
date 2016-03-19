@@ -22,7 +22,7 @@ public class Melee : Weapon {
     {
         if(isAttacking)
         {
-            target.GetComponent<Character>().TakeDamage(damage);
+            target.GetComponent<CharacterHealth>().LoseHealth(damage);
             _col.hasAttacked = true;
         }
     }

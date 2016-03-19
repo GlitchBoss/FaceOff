@@ -23,6 +23,7 @@ public class SpecialPower : MonoBehaviour {
     }
 
 	Character player;
+	CharacterHealth playerHealth;
     int originalHealth, originalDamage;
     float originalSpeed;
     float minDist;
@@ -30,6 +31,7 @@ public class SpecialPower : MonoBehaviour {
     void Start()
     {
         player = GetComponent<Character>();
+		playerHealth = GetComponent<CharacterHealth>();
         minDist = GetComponent<CircleCollider2D>().radius * 2;
     }
 
@@ -51,10 +53,10 @@ public class SpecialPower : MonoBehaviour {
     void EngageEnhance()
     {
         StartCoroutine(Timer());
-        originalHealth = (int)player.health.num;
-        player.health.max += extraHealth;
-        player.health.num = player.health.max;
-        player.UpdateHealthSlider();
+        originalHealth = (int)playerHealth.health.num;
+		playerHealth.health.max += extraHealth;
+		//player.health.num = player.health.max;
+		playerHealth.UpdateHealthSlider();
         originalDamage = player.weapon.damage;
         player.weapon.damage += extraDamage;
         originalSpeed = player.speed;
@@ -78,7 +80,7 @@ public class SpecialPower : MonoBehaviour {
         float relativeDistance = (radius - dist) / radius;
         float damage = relativeDistance * maxDamage;
         damage = Mathf.Max(0f, damage);
-        otherPlayer.TakeDamage(damage);
+        otherPlayer.health.LoseHealth(damage);
         flash.SetActive(true);
     }
 
@@ -113,16 +115,16 @@ public class SpecialPower : MonoBehaviour {
 
     void DisengageEnhance()
     {
-        player.health.num = originalHealth;
-        player.health.max -= extraHealth;
-        player.UpdateHealthSlider();
+		playerHealth.health.num = originalHealth;
+		playerHealth.health.max -= extraHealth;
+		playerHealth.UpdateHealthSlider();
         player.weapon.damage = originalDamage;
         player.speed = originalSpeed;
     }
 
     void DisengageBomb()
     {
-        player.power.num = 0;
+        player.power.power.num = 0;
         flash.SetActive(false);
     }
 }

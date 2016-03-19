@@ -14,6 +14,8 @@ GameObject:
   - 114: {fileID: 11448844}
   - 114: {fileID: 11426022}
   - 114: {fileID: 11458146}
+  - 114: {fileID: 11423292}
+  - 114: {fileID: 11448626}
   m_Layer: 9
   m_Name: Smiley
   m_TagString: Player
@@ -252,7 +254,7 @@ CircleCollider2D:
   m_GameObject: {fileID: 106070}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 9fb59a36b8084724c9571d0705309f83, type: 2}
+  m_Material: {fileID: 6200000, guid: d302a04be899d604bad01d586edfd739, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
@@ -335,6 +337,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hasAttacked: 0
   enemyTag: Player
+--- !u!114 &11423292
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 106070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18f8f3d68d726ca439d80e59337fd29e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health:
+    max: 50
+    min: 0
+    num: 0
+  healthSlider: {fileID: 0}
 --- !u!114 &11426022
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -375,6 +393,23 @@ MonoBehaviour:
   anim: {fileID: 0}
   isAttacking: 0
   col: {fileID: 0}
+--- !u!114 &11448626
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 106070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae41e89cdf761b84092ca45d086a38ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  power:
+    max: 0
+    min: 0
+    num: 0
+  timeUntilFull: 5.2
+  powerSlider: {fileID: 0}
 --- !u!114 &11448844
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -388,18 +423,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 8
   jumpForce: 10
-  health:
-    max: 30
-    min: 0
-    num: 30
-  power:
-    max: 90
-    min: 0
-    num: 0
-  healthSlider: {fileID: 0}
-  powerSlider: {fileID: 0}
-  powerDecrease: 30
-  powerIncrease: 10
   useSecondaryControls: 0
   facingRight: 0
   lost: 0
@@ -416,6 +439,10 @@ MonoBehaviour:
   distToGround: 0
   _collider: {fileID: 0}
   SP: {fileID: 0}
+  horizontal: 0
+  paused: 0
+  health: {fileID: 0}
+  power: {fileID: 0}
   keys: 7700000020000000640000006100000030010000
 --- !u!114 &11458146
 MonoBehaviour:

@@ -753,8 +753,6 @@ MonoBehaviour:
   text: []
   finishPanel: {fileID: 0}
   BU: {fileID: 0}
-  timer: 0
-  timerResetNum: 0
 --- !u!1 &235019595
 GameObject:
   m_ObjectHideFlags: 0

@@ -17,7 +17,7 @@ public class Gun : Weapon {
             50, playerLayer);
         if (hit && hit.transform.tag == "Player")
         {
-            hit.transform.GetComponent<Player>().TakeDamage(damage);
+            hit.transform.GetComponent<CharacterHealth>().LoseHealth(damage);
         }
     }
 }
