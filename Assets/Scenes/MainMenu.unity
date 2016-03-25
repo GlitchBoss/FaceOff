@@ -752,6 +752,7 @@ MonoBehaviour:
   sliders: []
   text: []
   finishPanel: {fileID: 0}
+  tieBreakerText: {fileID: 0}
   BU: {fileID: 0}
   timer: {fileID: 0}
   SpecialPowerBtn: {fileID: 0}
@@ -1359,11 +1360,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af5844cfaeff6064e9bb3b8eaf5651a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemies:
-  - {fileID: 11485822, guid: d48b00ff211013145ab9073df1c7cbeb, type: 2}
-  - {fileID: 11485822, guid: ca62a4a55535b4f4789806633202acb0, type: 2}
-  - {fileID: 11482612, guid: c81da245dad512e4f9cbc3e07c47954f, type: 2}
-  - {fileID: 11406382, guid: 8660abdc7d8f8cf468c6414947b3e72a, type: 2}
   singlePlayer: 0
   gameTime: 60
   score: 0000000000000000
@@ -1373,6 +1369,7 @@ MonoBehaviour:
   players: []
   UIM: {fileID: 0}
   FM: {fileID: 0}
+  tieBreaker: 0
 --- !u!4 &563994807
 Transform:
   m_ObjectHideFlags: 0
@@ -3953,7 +3950,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1543086723
 RectTransform:
   m_ObjectHideFlags: 0

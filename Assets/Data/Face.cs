@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using GLITCH.Helpers;
 
 namespace Data
 {
@@ -9,5 +8,6 @@ namespace Data
 		public string name;
 		public int ID;
 		public Character prefab;
+		public Sprite image;
 	}
 }

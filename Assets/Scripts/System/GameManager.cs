@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour {
 	public UIManager UIM;
 	[HideInInspector]
 	public FaceManager FM;
+	[HideInInspector]
+	public bool tieBreaker;
 
     GameObject[] spawnPoints1, spawnPoints2;
 	float time;
@@ -50,6 +52,7 @@ public class GameManager : MonoBehaviour {
 				UIM.StartTimer(time);
 				UIM.UpdateScore(score);
 				UIM.SpecialPowerBtn.SetActive(false);
+				tieBreaker = false;
                 break;
 			case "SinglePlayer":
 				players = new List<Character>();
@@ -57,11 +60,13 @@ public class GameManager : MonoBehaviour {
 				UIM.StartTimer(time);
 				UIM.UpdateScore(score);
 				UIM.SpecialPowerBtn.SetActive(false);
+				tieBreaker = false;
 				break;
 			case "MainMenu":
 				score[0] = 0;
 				score[1] = 0;
 				time = gameTime;
+				tieBreaker = false;
 				break;
         }
     }
@@ -108,8 +113,11 @@ public class GameManager : MonoBehaviour {
 			score[0]++;
 			players[0].Win();
 		}
-		//UIM.UpdateScore(score);
-		//SpawnPlayers(singlePlayer);
+		if (tieBreaker)
+		{
+			UIM.GameOver();
+			return;
+		}
 		time = UIM.timer.currentTime;
 		StartCoroutine(Restart(1));
 	}
@@ -119,6 +127,7 @@ public class GameManager : MonoBehaviour {
 		score[0] = 0;
 		score[1] = 0;
 		time = gameTime;
+		tieBreaker = false;
 	}
 
 	IEnumerator Restart(float delay)

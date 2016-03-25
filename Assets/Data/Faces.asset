@@ -15,12 +15,16 @@ MonoBehaviour:
   - name: Smiley
     ID: 0
     prefab: {fileID: 11448844, guid: 74532f84836d91f49a6168ffdbba9543, type: 2}
+    image: {fileID: 21300000, guid: 4edd97341074d764890a74ca2bde1709, type: 3}
   - name: Nerd
     ID: 1
     prefab: {fileID: 11454276, guid: 5acb59544a467a74997ecba6981d769e, type: 2}
+    image: {fileID: 21300000, guid: e07cd04ca5111d049aa1c4b7b21a3ef9, type: 3}
   - name: Grandpa
     ID: 2
     prefab: {fileID: 11400612, guid: 0e12d4b14a275234d9f7d8bdb50e1e9d, type: 2}
+    image: {fileID: 21300000, guid: 166b110ae8ec01542a76354da6360ae5, type: 3}
   - name: Wink
     ID: 3
     prefab: {fileID: 11437150, guid: 1cc4e13f95083c94e91e1c73a53e931d, type: 2}
+    image: {fileID: 21300000, guid: 3e57c9f7799f10f48a75f2547c676e52, type: 3}

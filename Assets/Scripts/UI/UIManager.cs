@@ -13,6 +13,7 @@ public class UIManager : MonoBehaviour {
 	[Tooltip("0=timerText, 1=scoreText, 2=finishScoreText")]
 	public Text[] text;
 	public GameObject finishPanel;
+	public GameObject tieBreakerText;
 	public ButtonUtil BU;
 	public Timer timer;
 	public GameObject SpecialPowerBtn;
@@ -58,7 +59,15 @@ public class UIManager : MonoBehaviour {
 			return;
 		hasStarted = false;
 		timer.StopTimer();
-		GameOver();
+		if (GameManager.instance.score[0] == GameManager.instance.score[1])
+		{
+			GameManager.instance.tieBreaker = true;
+			tieBreakerText.SetActive(true);
+		}
+		else
+		{
+			GameOver();
+		}
 	}
 
 	public void GameOver()
