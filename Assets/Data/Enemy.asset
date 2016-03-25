@@ -15,12 +15,16 @@ MonoBehaviour:
   - name: AISmiley
     ID: 0
     prefab: {fileID: 11485822, guid: d48b00ff211013145ab9073df1c7cbeb, type: 2}
+    image: {fileID: 21300000, guid: 4edd97341074d764890a74ca2bde1709, type: 3}
   - name: AINerd
     ID: 1
     prefab: {fileID: 11485822, guid: ca62a4a55535b4f4789806633202acb0, type: 2}
+    image: {fileID: 21300000, guid: e07cd04ca5111d049aa1c4b7b21a3ef9, type: 3}
   - name: AIGrandpa
     ID: 2
     prefab: {fileID: 11482612, guid: c81da245dad512e4f9cbc3e07c47954f, type: 2}
+    image: {fileID: 21300000, guid: 166b110ae8ec01542a76354da6360ae5, type: 3}
   - name: AIWink
     ID: 3
     prefab: {fileID: 11406382, guid: 8660abdc7d8f8cf468c6414947b3e72a, type: 2}
+    image: {fileID: 21300000, guid: 3e57c9f7799f10f48a75f2547c676e52, type: 3}
