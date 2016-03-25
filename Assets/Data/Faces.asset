@@ -13,78 +13,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   faces:
   - name: Smiley
-    ID: 1
-    prefab: {fileID: 5017764, guid: 74532f84836d91f49a6168ffdbba9543, type: 2}
-    health:
-      max: 30
-      min: 0
-      num: 30
-    power:
-      max: 100
-      min: 0
-      num: 0
-    speed: 8
-    jumpForce: 10
-    powerDecrease: 30
-    powerIncrease: 10
-    useSecondaryControls: 0
-    facingRight: 0
-    lost: 0
-    engaged: 0
+    ID: 0
+    prefab: {fileID: 11448844, guid: 74532f84836d91f49a6168ffdbba9543, type: 2}
   - name: Nerd
-    ID: 2
-    prefab: {fileID: 5022628, guid: 5acb59544a467a74997ecba6981d769e, type: 2}
-    health:
-      max: 0
-      min: 0
-      num: 0
-    power:
-      max: 0
-      min: 0
-      num: 0
-    speed: 0
-    jumpForce: 0
-    powerDecrease: 0
-    powerIncrease: 0
-    useSecondaryControls: 0
-    facingRight: 0
-    lost: 0
-    engaged: 0
+    ID: 1
+    prefab: {fileID: 11454276, guid: 5acb59544a467a74997ecba6981d769e, type: 2}
   - name: Grandpa
-    ID: 3
-    prefab: {fileID: 5014470, guid: 0e12d4b14a275234d9f7d8bdb50e1e9d, type: 2}
-    health:
-      max: 0
-      min: 0
-      num: 0
-    power:
-      max: 0
-      min: 0
-      num: 0
-    speed: 0
-    jumpForce: 0
-    powerDecrease: 0
-    powerIncrease: 0
-    useSecondaryControls: 0
-    facingRight: 0
-    lost: 0
-    engaged: 0
+    ID: 2
+    prefab: {fileID: 11400612, guid: 0e12d4b14a275234d9f7d8bdb50e1e9d, type: 2}
   - name: Wink
-    ID: 4
-    prefab: {fileID: 5031814, guid: 1cc4e13f95083c94e91e1c73a53e931d, type: 2}
-    health:
-      max: 0
-      min: 0
-      num: 0
-    power:
-      max: 0
-      min: 0
-      num: 0
-    speed: 0
-    jumpForce: 0
-    powerDecrease: 0
-    powerIncrease: 0
-    useSecondaryControls: 0
-    facingRight: 0
-    lost: 0
-    engaged: 0
+    ID: 3
+    prefab: {fileID: 11437150, guid: 1cc4e13f95083c94e91e1c73a53e931d, type: 2}

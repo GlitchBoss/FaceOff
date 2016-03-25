@@ -6,6 +6,8 @@ using GLITCH.Helpers;
 public class CharacterHealth : MonoBehaviour {
 
 	public RangeFloat health;
+
+	[HideInInspector]
 	public Slider healthSlider;
 
 	Character character;

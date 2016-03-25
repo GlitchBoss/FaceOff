@@ -753,6 +753,10 @@ MonoBehaviour:
   text: []
   finishPanel: {fileID: 0}
   BU: {fileID: 0}
+  timer: {fileID: 0}
+  SpecialPowerBtn: {fileID: 0}
+  timerF: 0
+  timerResetNum: 0
 --- !u!1 &235019595
 GameObject:
   m_ObjectHideFlags: 0
@@ -1355,11 +1359,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af5844cfaeff6064e9bb3b8eaf5651a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  faces:
-  - {fileID: 11448844, guid: 74532f84836d91f49a6168ffdbba9543, type: 2}
-  - {fileID: 11454276, guid: 5acb59544a467a74997ecba6981d769e, type: 2}
-  - {fileID: 11400612, guid: 0e12d4b14a275234d9f7d8bdb50e1e9d, type: 2}
-  - {fileID: 11437150, guid: 1cc4e13f95083c94e91e1c73a53e931d, type: 2}
   enemies:
   - {fileID: 11485822, guid: d48b00ff211013145ab9073df1c7cbeb, type: 2}
   - {fileID: 11485822, guid: ca62a4a55535b4f4789806633202acb0, type: 2}
@@ -1372,6 +1371,8 @@ MonoBehaviour:
   player2Face: 0
   enemyFace: 0
   players: []
+  UIM: {fileID: 0}
+  FM: {fileID: 0}
 --- !u!4 &563994807
 Transform:
   m_ObjectHideFlags: 0
@@ -1381,7 +1382,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 2039955434}
   m_Father: {fileID: 0}
   m_RootOrder: 4
 --- !u!114 &563994808
@@ -4613,6 +4615,7 @@ Canvas:
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -5629,6 +5632,47 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2011267805}
+--- !u!1 &2039955433
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 2039955434}
+  - 114: {fileID: 2039955435}
+  m_Layer: 0
+  m_Name: FaceManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2039955434
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2039955433}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 563994807}
+  m_RootOrder: 0
+--- !u!114 &2039955435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2039955433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e175a9bd25d4924c87c0cf4dad110ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerFaces: {fileID: 11400000, guid: 4059a7d41a7667c418c869e5b4be3baf, type: 2}
+  enemyFaces: {fileID: 11400000, guid: 2bf7ea16731778c4d8edcfaa6efb75c6, type: 2}
 --- !u!1 &2053195162
 GameObject:
   m_ObjectHideFlags: 0

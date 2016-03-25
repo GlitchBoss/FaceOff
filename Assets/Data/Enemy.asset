@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c0dcd3689c077d4291a970ea1841057, type: 3}
+  m_Name: Enemy
+  m_EditorClassIdentifier: 
+  faces:
+  - name: AISmiley
+    ID: 0
+    prefab: {fileID: 11485822, guid: d48b00ff211013145ab9073df1c7cbeb, type: 2}
+  - name: AINerd
+    ID: 1
+    prefab: {fileID: 11485822, guid: ca62a4a55535b4f4789806633202acb0, type: 2}
+  - name: AIGrandpa
+    ID: 2
+    prefab: {fileID: 11482612, guid: c81da245dad512e4f9cbc3e07c47954f, type: 2}
+  - name: AIWink
+    ID: 3
+    prefab: {fileID: 11406382, guid: 8660abdc7d8f8cf468c6414947b3e72a, type: 2}

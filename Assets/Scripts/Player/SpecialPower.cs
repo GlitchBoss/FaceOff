@@ -26,13 +26,11 @@ public class SpecialPower : MonoBehaviour {
 	CharacterHealth playerHealth;
     int originalHealth, originalDamage;
     float originalSpeed;
-    float minDist;
 
     void Start()
     {
         player = GetComponent<Character>();
 		playerHealth = GetComponent<CharacterHealth>();
-        minDist = GetComponent<CircleCollider2D>().radius * 2;
     }
 
     public void Engage()

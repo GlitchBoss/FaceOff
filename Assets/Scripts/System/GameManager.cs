@@ -6,8 +6,6 @@ using UnityEngine.Analytics;
 
 public class GameManager : MonoBehaviour {
 
-    public Character[] faces;
-	public Character[] enemies;
 	public bool singlePlayer;
 	public float gameTime;
 	public int[] score;
@@ -18,6 +16,8 @@ public class GameManager : MonoBehaviour {
 	public List<Character> players;
 	[HideInInspector]
 	public UIManager UIM;
+	[HideInInspector]
+	public FaceManager FM;
 
     GameObject[] spawnPoints1, spawnPoints2;
 	float time;
@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour {
             instance = this;
         if (instance != this)
             Destroy(gameObject);
+		FM = GetComponentInChildren<FaceManager>();
         StartUp();
     }
 
@@ -72,15 +73,15 @@ public class GameManager : MonoBehaviour {
         spawnPoints2 = GameObject.FindGameObjectsWithTag("SpawnPoint2");
         int index = Random.Range(0, spawnPoints1.Length);
 
-		Character p1 = (Character)Instantiate(faces[player1Face], 
+		Character p1 = (Character)Instantiate(FM.GetFace(player1Face, FaceManager.Type.Player).prefab, 
             spawnPoints1[index].transform.position, Quaternion.identity);
 		Character p2;
 		if (singlePlayer)
-			p2 = (Character)Instantiate(enemies[enemyFace], 
+			p2 = (Character)Instantiate(FM.GetFace(enemyFace, FaceManager.Type.Enemy).prefab, 
 				spawnPoints2[index].transform.position, Quaternion.identity);
 		else
 		{
-			p2 = (Character)Instantiate(faces[player2Face],
+			p2 = (Character)Instantiate(FM.GetFace(player2Face, FaceManager.Type.Player).prefab,
 				spawnPoints2[index].transform.position, Quaternion.identity);
 		}
 		p1.useSecondaryControls = true;

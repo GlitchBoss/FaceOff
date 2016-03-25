@@ -66,6 +66,7 @@ public class UIManager : MonoBehaviour {
 		BU.PauseGame();
 		int[] score = GameManager.instance.score;
 		text[2].text = string.Format("{0}-{1}", score[0], score[1]);
+		UpdateScore(score);
 		finishPanel.SetActive(true);
 	}
 }
