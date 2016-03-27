@@ -8,12 +8,14 @@ public class SpecialPower : MonoBehaviour {
 
     public int extraHealth, extraDamage;
     public float extraSpeed;
+	public bool fillHealth;
 
     public int maxDamage;
     public float radius;
     public float delay;
     public GameObject flash;
 
+	public bool background;
     public Type type;
 
     public enum Type
@@ -22,21 +24,37 @@ public class SpecialPower : MonoBehaviour {
         Bomb
     }
 
-	Character player;
+	Character character;
+	BackgroundFace bkgFace;
 	CharacterHealth playerHealth;
     int originalHealth, originalDamage;
     float originalSpeed;
 
     void Start()
     {
-        player = GetComponent<Character>();
+		if (background)
+		{
+			bkgFace = GetComponent<BackgroundFace>();
+		}
+		else
+		{
+			character = GetComponent<Character>();
+		}
 		playerHealth = GetComponent<CharacterHealth>();
     }
 
     public void Engage()
     {
-        player.anim.SetBool(animBool, true);
-        player.engaged = true;
+		if (background)
+		{
+			bkgFace.anim.SetBool(animBool, true);
+			bkgFace.engaged = true;
+		}
+		else
+		{
+			character.anim.SetBool(animBool, true);
+			character.engaged = true;
+		}
         switch (type)
         {
             case Type.Enhance:
@@ -53,19 +71,42 @@ public class SpecialPower : MonoBehaviour {
         StartCoroutine(Timer());
         originalHealth = (int)playerHealth.health.num;
 		playerHealth.health.max += extraHealth;
-		//player.health.num = player.health.max;
+		if (background)
+		{
+			if (fillHealth)
+				bkgFace.health.health.num = bkgFace.health.health.max;
+		}
+		else
+		{
+			if(fillHealth)
+				character.health.health.num = character.health.health.max;
+		}
 		playerHealth.UpdateHealthSlider();
-        originalDamage = player.weapon.damage;
-        player.weapon.damage += extraDamage;
-        originalSpeed = player.speed;
-        player.speed += extraSpeed;
+		if (background)
+		{
+			originalDamage = bkgFace.weapon.damage;
+			bkgFace.weapon.damage += extraDamage;
+			originalSpeed = bkgFace.speed;
+			bkgFace.speed += extraSpeed;
+		}
+		else
+		{
+			originalDamage = character.weapon.damage;
+			character.weapon.damage += extraDamage;
+			originalSpeed = character.speed;
+			character.speed += extraSpeed;
+		}
     }
 
     void EngageBomb()
     {
         StartCoroutine(Timer());
+		if (background)
+		{
+			return;
+		}
 		Character otherPlayer;
-        if(GameManager.instance.players.IndexOf(player) == 0)
+		if (GameManager.instance.players.IndexOf(character) == 0)
         {
             otherPlayer = GameManager.instance.players[1];
         }
@@ -98,8 +139,16 @@ public class SpecialPower : MonoBehaviour {
 
     void Disengage()
     {
-        player.anim.SetBool(animBool, false);
-        player.engaged = false;
+		if (background)
+		{
+			bkgFace.anim.SetBool(animBool, false);
+			bkgFace.engaged = false;
+		}
+		else
+		{
+			character.anim.SetBool(animBool, false);
+			character.engaged = false;
+		}
         switch (type)
         {
             case Type.Enhance:
@@ -113,16 +162,32 @@ public class SpecialPower : MonoBehaviour {
 
     void DisengageEnhance()
     {
-		playerHealth.health.num = originalHealth;
+		if(fillHealth)
+			playerHealth.health.num = originalHealth;
 		playerHealth.health.max -= extraHealth;
 		playerHealth.UpdateHealthSlider();
-        player.weapon.damage = originalDamage;
-        player.speed = originalSpeed;
+		if (background)
+		{
+			bkgFace.weapon.damage = originalDamage;
+			bkgFace.speed = originalSpeed;
+		}
+		else
+		{
+			character.weapon.damage = originalDamage;
+			character.speed = originalSpeed;
+		}
     }
 
     void DisengageBomb()
     {
-        player.power.power.num = 0;
+		if (background)
+		{
+			bkgFace.power.power.num = 0;
+		}
+		else
+		{
+			character.power.power.num = 0;
+		}
         flash.SetActive(false);
     }
 }

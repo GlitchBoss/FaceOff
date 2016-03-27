@@ -12,18 +12,11 @@ public class Weapon : MonoBehaviour {
 
     void Start ()
     {
-        character = transform.parent.GetComponentInParent<Character>();
-        anim = character.GetComponent<Animator>();
+        anim = transform.GetComponentInParent<Animator>();
         StartUp();
     }
 
     protected virtual void StartUp() { }
-
-    void Update()
-    {
-        if (character.lost)
-            return;
-    }
 
     public void Attack(bool onGround)
     {

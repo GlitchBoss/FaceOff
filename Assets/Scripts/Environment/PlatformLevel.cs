@@ -25,5 +25,10 @@ public class PlatformLevel : MonoBehaviour {
 			if (col.GetComponent<Enemy>().level.level != level)
 				col.GetComponent<Enemy>().level.level = level;
 		}
+		else if(col.tag == "BackgroundFace")
+		{
+			if (col.GetComponent<BackgroundFace>().level.level != level)
+				col.GetComponent<BackgroundFace>().level.level = level;
+		}
 	}
 }

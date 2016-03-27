@@ -339,6 +339,7 @@ MonoBehaviour:
     max: 30
     min: 0
     num: 0
+  background: 0
   healthSlider: {fileID: 0}
 --- !u!114 &11410244
 MonoBehaviour:
@@ -356,6 +357,7 @@ MonoBehaviour:
     min: 0
     num: 0
   timeUntilFull: 7
+  background: 0
   powerSlider: {fileID: 0}
 --- !u!114 &11427418
 MonoBehaviour:
@@ -416,18 +418,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 8
   jumpForce: 10
+  ground:
+    serializedVersion: 2
+    m_Bits: 256
   useSecondaryControls: 0
   facingRight: 0
   lost: 0
   engaged: 0
-  ground:
-    serializedVersion: 2
-    m_Bits: 256
   winGO: {fileID: 199022}
-  anim: {fileID: 0}
-  weapon: {fileID: 0}
-  level: {fileID: 0}
   image: {fileID: 0}
+  level: {fileID: 0}
+  weapon: {fileID: 0}
+  anim: {fileID: 0}
   _rigidbody: {fileID: 0}
   distToGround: 0
   _collider: {fileID: 0}
@@ -472,10 +474,12 @@ MonoBehaviour:
   extraHealth: 25
   extraDamage: 3
   extraSpeed: 0
+  fillHealth: 1
   maxDamage: 0
   radius: 0
   delay: 0
   flash: {fileID: 0}
+  background: 0
   type: 0
 --- !u!212 &21217892
 SpriteRenderer:
@@ -582,6 +586,7 @@ Canvas:
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0

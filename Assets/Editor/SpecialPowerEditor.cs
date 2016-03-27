@@ -12,6 +12,7 @@ public class SpecialPowerEditor : Editor {
         extraHealth_Prop,
         extraDamage_Prop,
         extraSpeed_Prop,
+		fillHealth_Prop,
         maxDamage_Prop, 
         radius_Prop,
         delay_Prop,
@@ -27,7 +28,8 @@ public class SpecialPowerEditor : Editor {
         extraHealth_Prop = serializedObject.FindProperty("extraHealth");
         extraDamage_Prop = serializedObject.FindProperty("extraDamage");
         extraSpeed_Prop = serializedObject.FindProperty("extraSpeed");
-        maxDamage_Prop = serializedObject.FindProperty("maxDamage");
+		fillHealth_Prop = serializedObject.FindProperty("fillHealth");
+		maxDamage_Prop = serializedObject.FindProperty("maxDamage");
         radius_Prop = serializedObject.FindProperty("radius");
         delay_Prop = serializedObject.FindProperty("delay");
         flash_Prop = serializedObject.FindProperty("flash");
@@ -47,7 +49,8 @@ public class SpecialPowerEditor : Editor {
                 EditorGUILayout.PropertyField(extraDamage_Prop);
                 EditorGUILayout.PropertyField(extraHealth_Prop);
                 EditorGUILayout.PropertyField(extraSpeed_Prop);
-                break;
+				EditorGUILayout.PropertyField(fillHealth_Prop);
+				break;
 
             case SpecialPower.Type.Bomb:
                 EditorGUILayout.PropertyField(maxDamage_Prop);

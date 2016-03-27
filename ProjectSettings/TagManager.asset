@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - PlatformLevel
   - JumpBox
+  - BackgroundFace
   layers:
   - Default
   - TransparentFX
