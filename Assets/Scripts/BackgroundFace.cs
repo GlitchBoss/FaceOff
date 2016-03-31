@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using GLITCH.Helpers;
 
 public class BackgroundFace : MonoBehaviour {
 
@@ -7,15 +8,15 @@ public class BackgroundFace : MonoBehaviour {
 	public LayerMask ground;
 	public bool showPath;
 	public float fireRate;
+	public RangeFloat power;
+	[Tooltip("In Seconds")]
+	public float timeUntilFull;
+	public RangeFloat health;
 
 	[HideInInspector]
 	public Transform[] path;
 	[HideInInspector]
 	public bool shouldAttack, facingRight, lost, engaged;
-	[HideInInspector]
-	public CharacterHealth health;
-	[HideInInspector]
-	public CharacterPower power;
 	[HideInInspector]
 	public int horizontal;
 	[HideInInspector]
@@ -34,7 +35,7 @@ public class BackgroundFace : MonoBehaviour {
 	public SpecialPower SP;
 	[HideInInspector]
 	public Transform image;
-	[HideInInspector]
+	//[HideInInspector]
 	public BackgroundFace target;
 	[HideInInspector]
 	public BackgroundManager BM;
@@ -45,11 +46,11 @@ public class BackgroundFace : MonoBehaviour {
 	Vector2 side, velocity;
 	PathFinding pathFinding;
 	bool canAttack = true;
+	float powerDecrease;
+	float powerIncrease;
 
 	void Awake()
 	{
-		health = GetComponent<CharacterHealth>();
-		power = GetComponent<CharacterPower>();
 		SP = GetComponent<SpecialPower>();
 	}
 
@@ -62,6 +63,18 @@ public class BackgroundFace : MonoBehaviour {
 		weapon = GetComponentInChildren<Weapon>();
 		anim = GetComponent<Animator>();
 		pathFinding = GameObject.Find("Path").GetComponent<PathFinding>();
+		health.num = health.max;
+		power.num = power.min;
+		power.max = 100;
+		if (SP.duration >= 1)
+		{
+			powerDecrease = power.max / SP.duration;
+		}
+		else
+		{
+			powerDecrease = power.max;
+		}
+		powerIncrease = power.max / timeUntilFull;
 		distToGround = _collider.bounds.extents.y;
 		horizontal = 1;
 	}
@@ -70,8 +83,7 @@ public class BackgroundFace : MonoBehaviour {
 	{
 		if(!target)
 		{
-			//BM.ReplenishTeams();
-			//Win();
+			target = BM.ChooseTarget(team);
 			return;
 		}
 		if (horizontal > 0)
@@ -118,7 +130,7 @@ public class BackgroundFace : MonoBehaviour {
 			_rigidbody.velocity = velocity;
 		}
 
-		power.UpdatePowerSlider(engaged);
+		UpdatePowerSlider(engaged);
 	}
 
 	void MoveToTarget()
@@ -159,7 +171,7 @@ public class BackgroundFace : MonoBehaviour {
 
 	void Attack()
 	{
-		if (power.power.num == power.power.max)
+		if (power.num == power.max)
 		{
 			SP.Engage();
 		}
@@ -178,7 +190,7 @@ public class BackgroundFace : MonoBehaviour {
 
 	public void Lose()
 	{
-		if(team == 1)
+		if(team == 0)
 		{
 			BM.team1.Remove(this);
 		}
@@ -191,7 +203,7 @@ public class BackgroundFace : MonoBehaviour {
 
 	public void Win()
 	{
-		BM.ReplenishTeams();
+		//BM.ReplenishTeams();
 	}
 
 	IEnumerator DelayAttack(float delay)
@@ -204,6 +216,43 @@ public class BackgroundFace : MonoBehaviour {
 	{
 		return Physics2D.Raycast(transform.position, -Vector3.up,
 			distToGround + 0.1f, ground);
+	}
+
+	public void LoseHealth(float amount)
+	{
+		health.num -= amount;
+		if (health.num <= 0)
+		{
+			Lose();
+		}
+	}
+
+	public void GainHealth(float amount)
+	{
+		health.num += amount;
+	}
+
+	public void UpdatePowerSlider(bool inUse)
+	{
+		if (power.num > power.max)
+		{
+			power.num = power.max;
+			return;
+		}
+		else if (power.num < power.min)
+		{
+			power.num = power.min;
+			return;
+		}
+
+		if (inUse)
+		{
+			power.num -= powerDecrease * Time.deltaTime;
+		}
+		else
+		{
+			power.num += powerIncrease * Time.deltaTime;
+		}
 	}
 
 	void OnDrawGizmos()

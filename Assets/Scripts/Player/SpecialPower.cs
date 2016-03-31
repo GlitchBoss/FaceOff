@@ -15,7 +15,7 @@ public class SpecialPower : MonoBehaviour {
     public float delay;
     public GameObject flash;
 
-	public bool background;
+	public bool background = false;
     public Type type;
 
     public enum Type
@@ -69,19 +69,21 @@ public class SpecialPower : MonoBehaviour {
     void EngageEnhance()
     {
         StartCoroutine(Timer());
-        originalHealth = (int)playerHealth.health.num;
-		playerHealth.health.max += extraHealth;
 		if (background)
 		{
+			bkgFace.health.max += extraHealth;
+			originalHealth = (int)bkgFace.health.num;
 			if (fillHealth)
-				bkgFace.health.health.num = bkgFace.health.health.max;
+				bkgFace.health.num = bkgFace.health.max;
 		}
 		else
 		{
+			playerHealth.health.max += extraHealth;
+			originalHealth = (int)playerHealth.health.num;
 			if(fillHealth)
 				character.health.health.num = character.health.health.max;
+			playerHealth.UpdateHealthSlider();
 		}
-		playerHealth.UpdateHealthSlider();
 		if (background)
 		{
 			originalDamage = bkgFace.weapon.damage;
@@ -162,17 +164,21 @@ public class SpecialPower : MonoBehaviour {
 
     void DisengageEnhance()
     {
-		if(fillHealth)
-			playerHealth.health.num = originalHealth;
-		playerHealth.health.max -= extraHealth;
-		playerHealth.UpdateHealthSlider();
+		
 		if (background)
 		{
+			if (fillHealth)
+				bkgFace.health.num = originalHealth;
+			bkgFace.health.max -= extraHealth;
 			bkgFace.weapon.damage = originalDamage;
 			bkgFace.speed = originalSpeed;
 		}
 		else
 		{
+			if (fillHealth)
+				playerHealth.health.num = originalHealth;
+			playerHealth.health.max -= extraHealth;
+			playerHealth.UpdateHealthSlider();
 			character.weapon.damage = originalDamage;
 			character.speed = originalSpeed;
 		}
@@ -182,7 +188,7 @@ public class SpecialPower : MonoBehaviour {
     {
 		if (background)
 		{
-			bkgFace.power.power.num = 0;
+			bkgFace.power.num = 0;
 		}
 		else
 		{

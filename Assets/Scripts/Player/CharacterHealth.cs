@@ -6,30 +6,21 @@ using GLITCH.Helpers;
 public class CharacterHealth : MonoBehaviour {
 
 	public RangeFloat health;
-	public bool background = false;
 
 	[HideInInspector]
 	public Slider healthSlider;
 
 	Character character;
-	BackgroundFace face;
 
 	void Start()
 	{
-		if (background)
-		{
-			face = GetComponent<BackgroundFace>();
-		}
-		else
-		{
-			character = GetComponent<Character>();
-		}
+		character = GetComponent<Character>();
 		health.num = health.max;
 	}
 
 	public void UpdateHealthSlider()
 	{
-		if (!character || character.paused || background)
+		if (character.paused)
 			return;
 		healthSlider.maxValue = health.max;
 		healthSlider.minValue = health.min;
@@ -38,19 +29,12 @@ public class CharacterHealth : MonoBehaviour {
 
 	public void LoseHealth(float amount)
 	{
-		if (character && (character.lost || character.paused) && !background)
+		if (character.lost || character.paused)
 			return;
 		health.num -= amount;
 		if (health.num <= 0)
 		{
-			if (background)
-			{
-				face.Lose();
-			}
-			else
-			{
-				character.Lose();
-			}
+			character.Lose();
 		}
 		UpdateHealthSlider();
 	}

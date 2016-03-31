@@ -8,6 +8,7 @@ public class SpecialPowerEditor : Editor {
     public SerializedProperty
         duration_Prop,
         animBool_Prop,
+		background_Prop,
         type_Prop,
         extraHealth_Prop,
         extraDamage_Prop,
@@ -24,7 +25,8 @@ public class SpecialPowerEditor : Editor {
         // Setup the SerializedProperties
         duration_Prop = serializedObject.FindProperty("duration");
         animBool_Prop = serializedObject.FindProperty("animBool");
-        type_Prop = serializedObject.FindProperty("type");
+		background_Prop = serializedObject.FindProperty("background");
+		type_Prop = serializedObject.FindProperty("type");
         extraHealth_Prop = serializedObject.FindProperty("extraHealth");
         extraDamage_Prop = serializedObject.FindProperty("extraDamage");
         extraSpeed_Prop = serializedObject.FindProperty("extraSpeed");
@@ -40,7 +42,8 @@ public class SpecialPowerEditor : Editor {
         serializedObject.Update();
         EditorGUILayout.PropertyField(duration_Prop);
         EditorGUILayout.PropertyField(animBool_Prop);
-        EditorGUILayout.PropertyField(type_Prop);
+		EditorGUILayout.PropertyField(background_Prop);
+		EditorGUILayout.PropertyField(type_Prop);
         SpecialPower.Type st = (SpecialPower.Type)type_Prop.enumValueIndex;
 
         switch (st)

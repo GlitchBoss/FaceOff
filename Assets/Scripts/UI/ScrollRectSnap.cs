@@ -1,12 +1,18 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
+using System.Collections.Generic;
+using Data;
 
 public class ScrollRectSnap : MonoBehaviour {
 
     public RectTransform content;
-    public Image[] bttns;
+    public List<Image> bttns = new List<Image>();
     public RectTransform center;
+	public FaceData faces;
+	public RectTransform parent;
+	public Image bttnPrefab;
+	public Sprite commingSoon;
+
     public int currentImg
     {
         get { return minBttnNum; }
@@ -15,13 +21,38 @@ public class ScrollRectSnap : MonoBehaviour {
     float[] distance;
     float[] distReposition;
     bool dragging = false;
-    int buttonDist;
     int minBttnNum;
     int bttnLength;
+	int nextPos;
+	float wrapPos;
+
+	[SerializeField]
+    int buttonDist;
 
     void Start()
     {
-        bttnLength = bttns.Length;
+		//bttns[0].GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
+		nextPos = 0;
+		for(int i = 0; i < faces.faces.Count; i++)
+		{
+			Image face = Instantiate(bttnPrefab);
+			face.rectTransform.SetParent(parent, false);
+			face.rectTransform.anchoredPosition = new Vector2(face.rectTransform.anchoredPosition.x, face.rectTransform.anchoredPosition.y + nextPos);
+			face.sprite = faces.faces[i].image;
+			bttns.Add(face);
+			nextPos += buttonDist;
+		}
+
+		Image cs = Instantiate(bttnPrefab);
+		cs.rectTransform.SetParent(parent, false);
+		cs.rectTransform.anchoredPosition = new Vector2(cs.rectTransform.anchoredPosition.x, cs.rectTransform.anchoredPosition.y + nextPos);
+		cs.sprite = commingSoon;
+		bttns.Add(cs);
+		nextPos += buttonDist;
+
+		wrapPos = nextPos - (buttonDist * 2f);
+
+        bttnLength = bttns.Count;
         distance = new float[bttnLength];
         distReposition = new float[bttnLength];
 
@@ -31,13 +62,13 @@ public class ScrollRectSnap : MonoBehaviour {
 
     void Update()
     {
-        for(int i = 0; i < bttns.Length; i++)
+        for(int i = 0; i < bttns.Count; i++)
         {
             distReposition[i] = center.GetComponent<RectTransform>().position.y -
                 bttns[i].GetComponent<RectTransform>().position.y;
             distance[i] = Mathf.Abs(distReposition[i]);
 
-            if(distReposition[i] > 900)
+            if(distReposition[i] > wrapPos)
             {
                 float curX = bttns[i].GetComponent<RectTransform>().anchoredPosition.x;
                 float curY = bttns[i].GetComponent<RectTransform>().anchoredPosition.y;
@@ -45,7 +76,7 @@ public class ScrollRectSnap : MonoBehaviour {
                 Vector2 newAnchoredPos = new Vector2(curX, curY + (bttnLength * buttonDist));
                 bttns[i].GetComponent<RectTransform>().anchoredPosition = newAnchoredPos;
             }
-            if (distReposition[i] < -900)
+            if (distReposition[i] < -wrapPos)
             {
                 float curX = bttns[i].GetComponent<RectTransform>().anchoredPosition.x;
                 float curY = bttns[i].GetComponent<RectTransform>().anchoredPosition.y;
@@ -56,7 +87,7 @@ public class ScrollRectSnap : MonoBehaviour {
         }
 
         float minDist = Mathf.Min(distance);
-        for(int a = 0; a < bttns.Length; a++)
+        for(int a = 0; a < bttns.Count; a++)
         {
             if(minDist == distance[a])
             {

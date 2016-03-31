@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using GLITCH.Helpers;
+using System;
 
 public class Character : MonoBehaviour {
 
