@@ -140,6 +140,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &199406
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 495918}
+  - 212: {fileID: 21277058}
+  m_Layer: 0
+  m_Name: CircleBlur
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!4 &408250
 Transform:
   m_ObjectHideFlags: 1
@@ -203,6 +219,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 495918}
   - {fileID: 477922}
   m_Father: {fileID: 415606}
   m_RootOrder: 0
@@ -229,6 +246,18 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 437880}
+  m_Father: {fileID: 447228}
+  m_RootOrder: 1
+--- !u!4 &495918
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 199406}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
   m_Father: {fileID: 447228}
   m_RootOrder: 0
 --- !u!50 &5014470
@@ -410,10 +439,12 @@ MonoBehaviour:
   extraHealth: 30
   extraDamage: 10
   extraSpeed: 5
+  fillHealth: 0
   maxDamage: 0
   radius: 0
   delay: 0
   flash: {fileID: 0}
+  background: 0
   type: 0
 --- !u!114 &11461898
 MonoBehaviour:
@@ -444,18 +475,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 8
   jumpForce: 10
+  ground:
+    serializedVersion: 2
+    m_Bits: 256
   useSecondaryControls: 0
   facingRight: 0
   lost: 0
   engaged: 0
-  ground:
-    serializedVersion: 2
-    m_Bits: 256
   winGO: {fileID: 108794}
-  anim: {fileID: 0}
-  weapon: {fileID: 0}
-  level: {fileID: 0}
   image: {fileID: 0}
+  level: {fileID: 0}
+  weapon: {fileID: 0}
+  anim: {fileID: 0}
   _rigidbody: {fileID: 0}
   distToGround: 0
   _collider: {fileID: 0}
@@ -464,11 +495,10 @@ MonoBehaviour:
   paused: 0
   health: {fileID: 0}
   power: {fileID: 0}
-  path: []
   showPath: 1
-  shouldAttack: 0
   fireRate: 0.7
-  canAttack: 1
+  path: []
+  shouldAttack: 0
 --- !u!114 &11485392
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -492,6 +522,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74efb24aaf306c040b3c781107fd524a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  background: 0
 --- !u!114 &11495832
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -538,6 +569,36 @@ SpriteRenderer:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 1
+--- !u!212 &21277058
+SpriteRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 199406}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_ReflectionProbeUsage: 0
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: -331795911
+  m_SortingOrder: -1
+  m_Sprite: {fileID: 21300000, guid: 62ba7c81d959556439f8185baca7ef77, type: 3}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
 --- !u!212 &21287850
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -613,6 +674,7 @@ Canvas:
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
