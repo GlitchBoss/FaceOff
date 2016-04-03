@@ -1,20 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Data;
 
 public class UnlockManager : MonoBehaviour {
 
+	int unlocked;
+	public FaceData faces;
+
 	void Start()
 	{
-		Smiley smiley = GameManager.instance.FM.GetFace("Smiley", FaceManager.Type.Player).prefab.GetComponent<Smiley>();
-		smiley.Unlock();
+		unlocked = PlayerPrefs.GetInt("AIUnlocked", 1);
 
-		/*
-
-		Fix Smiley Errors!
-		Create and add script for each face.
-		Check for unlock every time the main menu scene is loaded.
-		Check for a way to add a line to a file.
-
-		*/
+		for(int i = 0; i < unlocked; i++)
+		{
+			faces.faces[i].unlocked = true;
+		}
 	}
 }
