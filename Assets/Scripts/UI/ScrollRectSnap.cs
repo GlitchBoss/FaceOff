@@ -12,6 +12,8 @@ public class ScrollRectSnap : MonoBehaviour {
 	public RectTransform parent;
 	public Image bttnPrefab;
 	public Sprite commingSoon;
+	public bool ai;
+	public bool playable;
 
     public int currentImg
     {
@@ -31,22 +33,45 @@ public class ScrollRectSnap : MonoBehaviour {
 
     void Start()
     {
-		//bttns[0].GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
+		//unlocked = PlayerPrefs.GetInt("AIUnlocked", 1);
 		nextPos = 0;
-		for(int i = 0; i < faces.faces.Count; i++)
+
+		for (int i = 0; i < faces.faces.Count; i++)
 		{
 			Image face = Instantiate(bttnPrefab);
 			face.rectTransform.SetParent(parent, false);
 			face.rectTransform.anchoredPosition = new Vector2(face.rectTransform.anchoredPosition.x, face.rectTransform.anchoredPosition.y + nextPos);
 			face.sprite = faces.faces[i].image;
+			if (faces.faces[i].unlocked)
+			{
+				face.transform.FindChild("Locked").gameObject.SetActive(false);
+			}
 			bttns.Add(face);
 			nextPos += buttonDist;
 		}
+
+		//if (ai)
+		//{
+		//	for(int i = 0; i < unlocked; i++)
+		//	{
+		//		bttns[i].transform.FindChild("Locked").gameObject.SetActive(false);
+		//	}
+		//}
+		//else
+		//{
+		//	for (int i = 0; i < bttns.Count; i++)
+		//	{
+		//		bttns[i].transform.FindChild("Locked").gameObject.SetActive(false);
+		//		unlocked = bttns.Count;
+		//	}
+		//}
+		
 
 		Image cs = Instantiate(bttnPrefab);
 		cs.rectTransform.SetParent(parent, false);
 		cs.rectTransform.anchoredPosition = new Vector2(cs.rectTransform.anchoredPosition.x, cs.rectTransform.anchoredPosition.y + nextPos);
 		cs.sprite = commingSoon;
+		cs.transform.FindChild("Locked").gameObject.SetActive(false);
 		bttns.Add(cs);
 		nextPos += buttonDist;
 
@@ -97,10 +122,24 @@ public class ScrollRectSnap : MonoBehaviour {
 
         if (!dragging)
         {
-            //LerpToButton(minBttnNum * -buttonDist);
             LerpToButton(-bttns[minBttnNum].GetComponent<RectTransform>().anchoredPosition.y);
         }
-    }
+		if (!ai)
+		{
+			playable = true;
+			if (minBttnNum == bttns.Count - 1)
+				playable = false;
+			return;
+		}
+
+		if(minBttnNum == bttns.Count - 1)
+		{
+			playable = false;
+			return;
+		}
+		playable = faces.faces[minBttnNum].unlocked;
+
+	}
 
     void LerpToButton(float pos)
     {

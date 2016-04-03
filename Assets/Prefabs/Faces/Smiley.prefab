@@ -16,7 +16,6 @@ GameObject:
   - 114: {fileID: 11458146}
   - 114: {fileID: 11423292}
   - 114: {fileID: 11448626}
-  - 114: {fileID: 11478804}
   m_Layer: 9
   m_Name: Smiley
   m_TagString: Player
@@ -419,7 +418,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 106070}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 41869d99c90117a4c918ca643bd93909, type: 3}
   m_Name: 
@@ -459,41 +458,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   level: 0
---- !u!114 &11478804
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 106070}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6295ccb3289285244afcbdc7ff3cd5e8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 8
-  jumpForce: 10
-  ground:
-    serializedVersion: 2
-    m_Bits: 0
-  useSecondaryControls: 0
-  facingRight: 0
-  lost: 0
-  engaged: 0
-  winGO: {fileID: 0}
-  image: {fileID: 0}
-  level: {fileID: 0}
-  weapon: {fileID: 0}
-  anim: {fileID: 0}
-  _rigidbody: {fileID: 0}
-  distToGround: 0
-  _collider: {fileID: 0}
-  SP: {fileID: 0}
-  horizontal: 0
-  paused: 0
-  health: {fileID: 0}
-  power: {fileID: 0}
-  keys: 
-  unlocked: 0
 --- !u!114 &11490406
 MonoBehaviour:
   m_ObjectHideFlags: 1

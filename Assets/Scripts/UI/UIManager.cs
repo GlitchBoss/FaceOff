@@ -8,6 +8,7 @@ public class UIManager : MonoBehaviour {
 
 	[Tooltip("0=player1Faces, 1=player2Faces, 2=playerFaces, 3=enemyFaces")]
 	public ScrollRectSnap[] scrollSnaps;
+	public Button play;
 	[Tooltip("0=p1Health, 1=p2Health, 2=p1Power, 3=p2Power")]
 	public Slider[] sliders;
 	[Tooltip("0=timerText, 1=scoreText, 2=finishScoreText")]
@@ -22,6 +23,20 @@ public class UIManager : MonoBehaviour {
 	public float timerF, timerResetNum;
 
 	bool hasStarted = true;
+
+	void FixedUpdate()
+	{
+		if (!scrollSnaps[2])
+			return;
+		if(scrollSnaps[2].playable && scrollSnaps[3].playable)
+		{
+			play.interactable = true;
+		}
+		else
+		{
+			play.interactable = false;
+		}
+	}
 
     public void LoadArena()
     {
