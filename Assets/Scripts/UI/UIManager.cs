@@ -52,6 +52,7 @@ public class UIManager : MonoBehaviour {
 
 	public void StartTimer(float time)
 	{
+		Timer.OnTimerStopped -= EndGame;
 		Timer.OnTimerStopped += EndGame;
 		timer.StartTimer(time);
 		hasStarted = true;
@@ -76,6 +77,7 @@ public class UIManager : MonoBehaviour {
 		{
 			EndGame();
 		}
+		Timer.OnTimerStopped -= EndGame;
 	}
 
 	public void EndGame()

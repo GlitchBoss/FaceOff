@@ -26,7 +26,17 @@ public class ScoreManager : MonoBehaviour {
 			enemyScore[i].sprite = noScoreImage;
 		}
 		UpdateScore();
+	}
+
+	void OnEnable()
+	{
+		OnGameOver -= EndGame;
 		OnGameOver += EndGame;
+	}
+
+	void OnDisable()
+	{
+		OnGameOver -= EndGame;
 	}
 
 	public void AddScore(int scorer)

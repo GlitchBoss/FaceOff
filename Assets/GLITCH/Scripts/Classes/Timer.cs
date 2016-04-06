@@ -33,7 +33,9 @@ namespace GLITCH.Helpers
 
 		public void StartTimer(float time)
 		{
+			OnTimerStopped -= StopTimer;
 			OnTimerStopped += StopTimer;
+			OnTimerUpdated -= UpdateText;
 			OnTimerUpdated += UpdateText;
 			startTime = time;
 			currentTime = time;
@@ -106,6 +108,7 @@ namespace GLITCH.Helpers
 			currentTime = startTime;
 			hasStarted = false;
 			finished = true;
+			OnTimerStopped -= StopTimer;
 		}
 	}
 }

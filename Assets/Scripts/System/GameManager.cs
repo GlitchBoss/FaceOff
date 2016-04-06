@@ -60,6 +60,7 @@ public class GameManager : MonoBehaviour {
 				SM = FindObjectOfType<ScoreManager>();
 				SpawnPlayers(singlePlayer = true);
 				UIM.SpecialPowerBtn.SetActive(false);
+				ScoreManager.OnGameOver -= EndGame;
 				ScoreManager.OnGameOver += EndGame;
 				tieBreaker = false;
 				break;
@@ -130,6 +131,7 @@ public class GameManager : MonoBehaviour {
 	public void EndGame()
 	{
 		UIM.EndGame();
+		ScoreManager.OnGameOver -= EndGame;
 	}
 
 	public void Reset()
