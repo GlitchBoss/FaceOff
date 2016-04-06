@@ -36,6 +36,8 @@ public class Character : MonoBehaviour {
 	public CharacterHealth health;
 	[HideInInspector]
 	public CharacterPower power;
+	[HideInInspector]
+	public SpriteRenderer teamIndicator;
 
 	public enum Movement
 	{
@@ -52,6 +54,7 @@ public class Character : MonoBehaviour {
 		health = GetComponent<CharacterHealth>();
 		power = GetComponent<CharacterPower>();
 		SP = GetComponent<SpecialPower>();
+		teamIndicator = transform.Find("Image/CircleBlur").GetComponent<SpriteRenderer>();
 	}
 
 	void Start()
@@ -107,6 +110,10 @@ public class Character : MonoBehaviour {
 
 	public bool IsGrounded()
 	{
+		if(!Mathf.Approximately(_rigidbody.velocity.y, 0))
+		{
+			return false;
+		}
 		return Physics2D.Raycast(transform.position, -Vector3.up,
 			distToGround + 0.1f, ground);
 	}

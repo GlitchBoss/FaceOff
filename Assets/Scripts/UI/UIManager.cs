@@ -11,8 +11,6 @@ public class UIManager : MonoBehaviour {
 	public Button play;
 	[Tooltip("0=p1Health, 1=p2Health, 2=p1Power, 3=p2Power")]
 	public Slider[] sliders;
-	[Tooltip("0=timerText, 1=scoreText, 2=finishScoreText")]
-	public Text[] text;
 	public GameObject finishPanel;
 	public GameObject tieBreakerText;
 	public ButtonUtil BU;
@@ -52,13 +50,10 @@ public class UIManager : MonoBehaviour {
 		SceneManager.LoadScene("SinglePlayer");
 	}
 
-	public void UpdateScore(int[] score)
-	{
-		text[1].text = string.Format("{0}-{1}", score[0], score[1]);
-	}
-
 	public void StartTimer(float time)
 	{
+		Timer.OnTimerStopped -= EndGame;
+		Timer.OnTimerStopped += EndGame;
 		timer.StartTimer(time);
 		hasStarted = true;
 	}
@@ -73,7 +68,6 @@ public class UIManager : MonoBehaviour {
 		if (!hasStarted)
 			return;
 		hasStarted = false;
-		timer.StopTimer();
 		if (GameManager.instance.score[0] == GameManager.instance.score[1])
 		{
 			GameManager.instance.tieBreaker = true;
@@ -81,17 +75,16 @@ public class UIManager : MonoBehaviour {
 		}
 		else
 		{
-			GameOver();
+			EndGame();
 		}
+		Timer.OnTimerStopped -= EndGame;
 	}
 
-	public void GameOver()
+	public void EndGame()
 	{
 		BU.PauseGame();
 		int[] score = GameManager.instance.score;
-		text[2].text = string.Format("{0}-{1}", score[0], score[1]);
-		UpdateScore(score);
-		if(score[0] > score[1])
+		if (score[0] > score[1])
 		{
 			int enemy = GameManager.instance.enemyFace;
 			CheckUnlock(enemy);

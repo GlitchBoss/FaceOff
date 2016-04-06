@@ -21,11 +21,13 @@ public class BackgroundManager : MonoBehaviour {
 		BackgroundFace face1 = (BackgroundFace)Instantiate(faces[i[0]], spawnpoints[i[1]].position, Quaternion.identity);
 		face1.BM = this;
 		face1.team = 0;
+		face1.teamIndicator.color = GameManager.instance.teamColors[0];
 
 		i = RandomFaceAndSpawnPoint();
 		BackgroundFace face2 = (BackgroundFace)Instantiate(faces[i[0]], spawnpoints[i[1]].position, Quaternion.identity);
 		face2.BM = this;
 		face2.team = 1;
+		face2.teamIndicator.color = GameManager.instance.teamColors[1];
 
 		face2.target = face1;
 		face1.target = face2;
@@ -61,6 +63,7 @@ public class BackgroundManager : MonoBehaviour {
 		BackgroundFace face = (BackgroundFace)Instantiate(faces[i[0]], spawnpoints[i[1]].position, Quaternion.identity);
 		face.BM = this;
 		face.team = team;
+		face.teamIndicator.color = GameManager.instance.teamColors[team];
 		face.target = ChooseTarget(team);
 		if(team == 0)
 		{

@@ -797,7 +797,6 @@ MonoBehaviour:
   - {fileID: 235019598}
   play: {fileID: 62035097}
   sliders: []
-  text: []
   finishPanel: {fileID: 0}
   tieBreakerText: {fileID: 0}
   BU: {fileID: 0}
@@ -1412,6 +1411,9 @@ MonoBehaviour:
   singlePlayer: 0
   gameTime: 60
   score: 0000000000000000
+  teamColors:
+  - {r: 0, g: 1, b: 0.21379328, a: 1}
+  - {r: 1, g: 0.7241379, b: 0, a: 1}
   player1Face: 0
   player2Face: 0
   enemyFace: 0
@@ -1419,6 +1421,7 @@ MonoBehaviour:
   UIM: {fileID: 0}
   FM: {fileID: 0}
   tieBreaker: 0
+  SM: {fileID: 0}
 --- !u!4 &563994807
 Transform:
   m_ObjectHideFlags: 0

@@ -5,6 +5,13 @@ using System.Timers;
 namespace GLITCH.Helpers
 {
 	public class Timer : MonoBehaviour {
+
+		public delegate void TimerStopped();
+		public delegate void TimerUpdated();
+
+		public static event TimerStopped OnTimerStopped;
+		public static event TimerUpdated OnTimerUpdated;
+
 		public float startTime;
 		public float currentTime;
 		public bool hasStarted;
@@ -26,6 +33,10 @@ namespace GLITCH.Helpers
 
 		public void StartTimer(float time)
 		{
+			OnTimerStopped -= StopTimer;
+			OnTimerStopped += StopTimer;
+			OnTimerUpdated -= UpdateText;
+			OnTimerUpdated += UpdateText;
 			startTime = time;
 			currentTime = time;
 			UpdateText();
@@ -38,7 +49,7 @@ namespace GLITCH.Helpers
 		{
 			if (currentTime <= 0)
 			{
-				StopTimer();
+				OnTimerStopped();
 				return;
 			}
 			else if(currentTime <= flashStartTime && flash && !isFlashing)
@@ -46,7 +57,7 @@ namespace GLITCH.Helpers
 				InvokeRepeating("Flash", 0.001f, 0.5f);
 			}
 			currentTime--;
-			UpdateText();
+			OnTimerUpdated();
 		}
 
 		void Flash()
@@ -97,7 +108,7 @@ namespace GLITCH.Helpers
 			currentTime = startTime;
 			hasStarted = false;
 			finished = true;
-			BroadcastMessage("StopTimer");
+			OnTimerStopped -= StopTimer;
 		}
 	}
 }

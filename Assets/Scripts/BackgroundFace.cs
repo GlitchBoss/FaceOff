@@ -41,6 +41,8 @@ public class BackgroundFace : MonoBehaviour {
 	public BackgroundManager BM;
 	[HideInInspector]
 	public int team;
+	[HideInInspector]
+	public SpriteRenderer teamIndicator;
 
 	bool toHigherLevel;
 	Vector2 side, velocity;
@@ -52,6 +54,7 @@ public class BackgroundFace : MonoBehaviour {
 	void Awake()
 	{
 		SP = GetComponent<SpecialPower>();
+		teamIndicator = transform.Find("Image/CircleBlur").GetComponent<SpriteRenderer>();
 	}
 
 	void Start()

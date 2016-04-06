@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour {
 	public bool singlePlayer;
 	public float gameTime;
 	public int[] score;
+	public Color[] teamColors;
 
     [HideInInspector]
     public int player1Face, player2Face, enemyFace;
@@ -20,6 +21,8 @@ public class GameManager : MonoBehaviour {
 	public FaceManager FM;
 	[HideInInspector]
 	public bool tieBreaker;
+	[HideInInspector]
+	public ScoreManager SM;
 
     GameObject[] spawnPoints1, spawnPoints2;
 	float time;
@@ -49,17 +52,16 @@ public class GameManager : MonoBehaviour {
             case "Arena":
                 players = new List<Character>();
                 SpawnPlayers(singlePlayer = false);
-				UIM.StartTimer(time);
-				UIM.UpdateScore(score);
 				UIM.SpecialPowerBtn.SetActive(false);
 				tieBreaker = false;
                 break;
 			case "SinglePlayer":
 				players = new List<Character>();
+				SM = FindObjectOfType<ScoreManager>();
 				SpawnPlayers(singlePlayer = true);
-				UIM.StartTimer(time);
-				UIM.UpdateScore(score);
 				UIM.SpecialPowerBtn.SetActive(false);
+				ScoreManager.OnGameOver -= EndGame;
+				ScoreManager.OnGameOver += EndGame;
 				tieBreaker = false;
 				break;
 			case "MainMenu":
@@ -94,6 +96,8 @@ public class GameManager : MonoBehaviour {
         p1.power.powerSlider = UIM.sliders[2];
         p2.health.healthSlider = UIM.sliders[1];
         p2.power.powerSlider = UIM.sliders[3];
+		p1.teamIndicator.color = teamColors[0];
+		p2.teamIndicator.color = teamColors[1];
         p1.SetControls();
         p2.SetControls();
         players.Add(p1);
@@ -103,23 +107,31 @@ public class GameManager : MonoBehaviour {
 	public void AddScore(Character loser)
 	{
 		int index = players.IndexOf(loser);
-		if(index == 0)
-		{
-			score[1]++;
-			players[1].Win();
-		}
-		else
-		{
-			score[0]++;
-			players[0].Win();
-		}
-		if (tieBreaker)
-		{
-			UIM.GameOver();
-			return;
-		}
+		SM.AddScore(index == 0 ? 1 : 0);
+		//if(index == 0)
+		//{
+		//	score[1]++;
+		//	players[1].Win();
+
+		//}
+		//else
+		//{
+		//	score[0]++;
+		//	players[0].Win();
+		//}
+		//if (tieBreaker)
+		//{
+		//	UIM.EndGame();
+		//	return;
+		//}
 		time = UIM.timer.currentTime;
 		StartCoroutine(Restart(1));
+	}
+
+	public void EndGame()
+	{
+		UIM.EndGame();
+		ScoreManager.OnGameOver -= EndGame;
 	}
 
 	public void Reset()

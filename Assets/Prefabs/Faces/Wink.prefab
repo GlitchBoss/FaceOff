@@ -1,5 +1,21 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &101922
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 451736}
+  - 212: {fileID: 21281370}
+  m_Layer: 0
+  m_Name: CircleBlur
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &117834
 GameObject:
   m_ObjectHideFlags: 0
@@ -194,7 +210,7 @@ Transform:
   m_Children:
   - {fileID: 408200}
   m_Father: {fileID: 443080}
-  m_RootOrder: 0
+  m_RootOrder: 1
 --- !u!4 &443080
 Transform:
   m_ObjectHideFlags: 1
@@ -205,6 +221,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 451736}
   - {fileID: 421650}
   m_Father: {fileID: 400674}
   m_RootOrder: 1
@@ -219,6 +236,18 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 453942}
+  m_RootOrder: 0
+--- !u!4 &451736
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 101922}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 443080}
   m_RootOrder: 0
 --- !u!4 &453942
 Transform:
@@ -353,10 +382,12 @@ MonoBehaviour:
   extraHealth: 20
   extraDamage: 3
   extraSpeed: 0
+  fillHealth: 0
   maxDamage: 20
   radius: 9
   delay: 0
   flash: {fileID: 132462}
+  background: 0
   type: 1
 --- !u!114 &11418004
 MonoBehaviour:
@@ -424,18 +455,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 8
   jumpForce: 10
+  ground:
+    serializedVersion: 2
+    m_Bits: 256
   useSecondaryControls: 0
   facingRight: 0
   lost: 0
   engaged: 0
-  ground:
-    serializedVersion: 2
-    m_Bits: 256
   winGO: {fileID: 183274}
-  anim: {fileID: 0}
-  weapon: {fileID: 0}
-  level: {fileID: 0}
   image: {fileID: 0}
+  level: {fileID: 0}
+  weapon: {fileID: 0}
+  anim: {fileID: 0}
   _rigidbody: {fileID: 0}
   distToGround: 0
   _collider: {fileID: 0}
@@ -626,6 +657,36 @@ SpriteRenderer:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 1
+--- !u!212 &21281370
+SpriteRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 101922}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_ReflectionProbeUsage: 0
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: -331795911
+  m_SortingOrder: -1
+  m_Sprite: {fileID: 21300000, guid: 62ba7c81d959556439f8185baca7ef77, type: 3}
+  m_Color: {r: 0, g: 0.048275948, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
 --- !u!223 &22327196
 Canvas:
   m_ObjectHideFlags: 1
@@ -641,6 +702,7 @@ Canvas:
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
