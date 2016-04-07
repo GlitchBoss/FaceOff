@@ -7,7 +7,7 @@ namespace Data
 
 		public string name;
 		public int ID;
-		public bool unlocked;
+		public bool AI;
 		public Character prefab;
 		public Sprite image;
 	}

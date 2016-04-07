@@ -4,16 +4,12 @@ using Data;
 
 public class UnlockManager : MonoBehaviour {
 
-	int unlocked;
+	public FaceData ai;
 	public FaceData faces;
 
-	void Start()
+	void Awake()
 	{
-		unlocked = PlayerPrefs.GetInt("AIUnlocked", 1);
-
-		for(int i = 0; i < unlocked; i++)
-		{
-			faces.faces[i].unlocked = true;
-		}
+		PlayerPrefs.SetInt(ai.faces[0].ID.ToString() + "Unlocked", 1);
+		PlayerPrefs.SetInt(faces.faces[0].ID.ToString() + "Owned", 1);
 	}
 }

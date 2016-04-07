@@ -33,7 +33,6 @@ public class ScrollRectSnap : MonoBehaviour {
 
     void Start()
     {
-		//unlocked = PlayerPrefs.GetInt("AIUnlocked", 1);
 		nextPos = 0;
 
 		for (int i = 0; i < faces.faces.Count; i++)
@@ -42,30 +41,23 @@ public class ScrollRectSnap : MonoBehaviour {
 			face.rectTransform.SetParent(parent, false);
 			face.rectTransform.anchoredPosition = new Vector2(face.rectTransform.anchoredPosition.x, face.rectTransform.anchoredPosition.y + nextPos);
 			face.sprite = faces.faces[i].image;
-			if (faces.faces[i].unlocked)
+			if (ai)
 			{
-				face.transform.FindChild("Locked").gameObject.SetActive(false);
+				if (PlayerPrefs.GetInt(faces.faces[i].ID.ToString() + "Unlocked", 0) == 1)
+				{
+					face.transform.FindChild("Locked").gameObject.SetActive(false);
+				}
+			}
+			else
+			{
+				if(PlayerPrefs.GetInt(faces.faces[i].ID.ToString() + "Owned", 0) == 1)
+				{
+					face.transform.FindChild("Locked").gameObject.SetActive(false);
+				}
 			}
 			bttns.Add(face);
 			nextPos += buttonDist;
-		}
-
-		//if (ai)
-		//{
-		//	for(int i = 0; i < unlocked; i++)
-		//	{
-		//		bttns[i].transform.FindChild("Locked").gameObject.SetActive(false);
-		//	}
-		//}
-		//else
-		//{
-		//	for (int i = 0; i < bttns.Count; i++)
-		//	{
-		//		bttns[i].transform.FindChild("Locked").gameObject.SetActive(false);
-		//		unlocked = bttns.Count;
-		//	}
-		//}
-		
+		}		
 
 		Image cs = Instantiate(bttnPrefab);
 		cs.rectTransform.SetParent(parent, false);
@@ -137,8 +129,16 @@ public class ScrollRectSnap : MonoBehaviour {
 			playable = false;
 			return;
 		}
-		playable = faces.faces[minBttnNum].unlocked;
-
+		if (ai)
+		{
+			playable = PlayerPrefs.GetInt(faces.faces[minBttnNum].ID.ToString() + "Unlocked")
+				== 1 ? true : false;
+		}
+		else
+		{
+			playable = PlayerPrefs.GetInt(faces.faces[minBttnNum].ID.ToString() + "Owned")
+				== 1 ? true : false;
+		}
 	}
 
     void LerpToButton(float pos)
