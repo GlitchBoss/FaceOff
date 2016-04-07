@@ -31,7 +31,11 @@ public class ScrollRectSnap : MonoBehaviour {
 	[SerializeField]
     int buttonDist;
 
-    void Start()
+	void Start() { OnStart(); }
+
+	void OnEnable() { OnStart(); }
+
+    void OnStart()
     {
 		nextPos = 0;
 
@@ -116,13 +120,13 @@ public class ScrollRectSnap : MonoBehaviour {
         {
             LerpToButton(-bttns[minBttnNum].GetComponent<RectTransform>().anchoredPosition.y);
         }
-		if (!ai)
-		{
-			playable = true;
-			if (minBttnNum == bttns.Count - 1)
-				playable = false;
-			return;
-		}
+		//if (!ai)
+		//{
+		//	playable = true;
+		//	if (minBttnNum == bttns.Count - 1)
+		//		playable = false;
+		//	return;
+		//}
 
 		if(minBttnNum == bttns.Count - 1)
 		{
